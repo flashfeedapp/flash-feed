@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: news-app
+  profiles:
+    active: dev
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/flash_feed
+    username: postgres
+    password: akhil@123
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+
+server:
+  address: 0.0.0.0
+  port: ${PORT:8080}
+
+newsdata:
+  api:
+    key: abcd
+
+gemini:
+  api:
+    key: AIzaSyDJ0EqRnDxjTegHX9lV9UD3mZvNe9VZjxQ
