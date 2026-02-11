@@ -5,9 +5,9 @@ spring:
     active: dev
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/flash_feed
-    username: postgres
-    password: akhil@123
+    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+    username: ${PGUSER}
+    password: ${PGPASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
