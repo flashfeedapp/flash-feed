@@ -1,4 +1,5 @@
 server:
+  forward-headers-strategy: framework
   port: ${PORT:8080}
   jpa:
     hibernate:
@@ -12,4 +13,8 @@ server:
 
 springdoc:
   swagger-ui:
-    path: /swagger-ui.html
+    disable-swagger-default-url: true
+  api-docs:
+    enabled: true
+  default-produces-media-type: application/json
+

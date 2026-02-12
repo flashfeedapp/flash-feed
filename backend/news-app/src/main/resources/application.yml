@@ -14,6 +14,7 @@ spring:
 
 
 server:
+  forward-headers-strategy: framework
   address: 0.0.0.0
   port: ${PORT:8080}
 
@@ -27,8 +28,10 @@ gemini:
 
 
 springdoc:
-  api-docs:
-    enabled: true
   swagger-ui:
     disable-swagger-default-url: true
+  api-docs:
+    enabled: true
+  default-produces-media-type: application/json
+
 
