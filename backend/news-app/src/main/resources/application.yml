@@ -24,3 +24,8 @@ newsdata:
 gemini:
   api:
     key: AIzaSyDJ0EqRnDxjTegHX9lV9UD3mZvNe9VZjxQ
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
