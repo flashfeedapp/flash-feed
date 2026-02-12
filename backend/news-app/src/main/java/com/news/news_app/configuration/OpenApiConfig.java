@@ -11,6 +11,6 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .addServersItem(new Server().url("https://flash-feed-production-1da5.up.railway.app"));
+                .addServersItem(new Server().url("https://flash-feed-production-fa95.up.railway.app"));
     }
 }

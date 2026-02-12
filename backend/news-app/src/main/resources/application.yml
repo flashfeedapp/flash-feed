@@ -29,9 +29,5 @@ gemini:
 
 springdoc:
   swagger-ui:
-    disable-swagger-default-url: true
-  api-docs:
-    enabled: true
-  default-produces-media-type: application/json
-
+    use-root-path: true
 
