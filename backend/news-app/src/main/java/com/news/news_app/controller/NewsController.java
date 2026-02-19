@@ -38,6 +38,12 @@ public class NewsController {
         return new ResponseEntity<>(businessNewsResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/jobs")
+    public Object getJobsNews(@RequestParam String deviceId) {
+        Object jobsNewsResponse = newsService.getJobsNewsByLangAndCategory(deviceId);
+        return new ResponseEntity<>(jobsNewsResponse, HttpStatus.OK);
+    }
+
     @GetMapping("/health")
     public Object getHealthNews(@RequestParam String deviceId) {
         Object worldNewsResponse = newsService.getHealthNewsByLangAndCategory(deviceId);

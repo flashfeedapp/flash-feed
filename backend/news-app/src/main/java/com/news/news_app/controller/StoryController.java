@@ -19,7 +19,7 @@ public class StoryController {
 
     @GetMapping
     public Object getStoryByLanguage(@RequestParam String language) {
-        List<DailyNewsCache> stories = storyRepository.findByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("story", language);
+        List<DailyNewsCache> stories = storyRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("story", language);
         return stories;
     }
 }

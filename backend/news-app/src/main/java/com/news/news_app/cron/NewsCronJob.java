@@ -27,7 +27,7 @@ public class NewsCronJob {
     @Autowired
     private LlamaStoryService llamaStoryService;
 
-    @Scheduled(cron = "0 20 05 * * *")
+    @Scheduled(cron = "0 36 06 * * *")
     @Transactional
     public void fetchAndStoreNews() {
 
@@ -47,6 +47,12 @@ public class NewsCronJob {
         saveNews(
                 newsService.fetchWorldNewsByLangAndCategoryFromNewsData("te", "world"),
                 "world",
+                "te", null, null
+        );
+
+        saveNews(
+                newsService.fetchJobsNewsByLangAndCategoryFromNewsData("te", "top"),
+                "jobs",
                 "te", null, null
         );
 

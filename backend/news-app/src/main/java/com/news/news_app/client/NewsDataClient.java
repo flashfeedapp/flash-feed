@@ -28,4 +28,6 @@ public interface NewsDataClient {
     @GetMapping
     Object getTechnologyNews(@RequestParam String language,@RequestParam String category);
 
+    @GetMapping
+    Object getJobsNews(@RequestParam("q") String keyword, @RequestParam String language, @RequestParam String category);
 }

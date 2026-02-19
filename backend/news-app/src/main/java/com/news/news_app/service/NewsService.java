@@ -51,19 +51,19 @@ public class NewsService {
         //return newsDataClient.getNationalNewsByCountryAndLanguage(country,language, category);
 
         Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("national", user.getLanguage());
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("national", user.getLanguage());
     }
 
     public Object getStateNewsByKeyword(String deviceId) {
         //return newsDataClient.getStateNewsByKeyword(keyword,language, category);
         Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findByCategoryIgnoreCaseAndLanguageIgnoreCaseAndStateIgnoreCaseAndCountryIgnoreCaseOrderByPublishedAtDesc("state", user.getLanguage(), user.getState(), user.getCountry());
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseAndStateIgnoreCaseAndCountryIgnoreCaseOrderByPublishedAtDesc("state", user.getLanguage(), user.getState(), user.getCountry());
     }
 
     public Object getWorldNewsByLangAndCategory(String deviceId) {
         //return newsDataClient.getWorldNews(language,category);
         Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("world", user.getLanguage());
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("world", user.getLanguage());
     }
 
     public Object fetchNationalNewsFromNewsData(String country, String language, String category) {
@@ -82,30 +82,26 @@ public class NewsService {
     public Object getBusinessNewsByLangAndCategory(String deviceId) {
         //return newsDataClient.getBusinessNews(language,"business");
         Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("business", user.getLanguage());
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("business", user.getLanguage());
     }
 
     public Object getHealthNewsByLangAndCategory(String deviceId) {
         //return currentsApiClient.getHealthNews(language,category);
         //return newsDataClient.getHealthNews("health", "te");
         Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("health", user.getLanguage());
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("health", user.getLanguage());
     }
 
     public Object getTechnologyNewsByLangAndCategory(String deviceId) {
         //return newsDataClient.getTechnologyNews(language,"technology");
         Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("technology",user.getLanguage());
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("technology",user.getLanguage());
     }
 
     public Object getEntertainmentNewsByLangAndCategory(String deviceId) {
         //return newsDataClient.getEntertainmentNews(language,"entertainment");
         Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("entertainment",user.getLanguage());
-    }
-
-    public Object getJobs() {
-        return dailyNewsCacheRepository.findByCategory("jobs");
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("entertainment",user.getLanguage());
     }
 
     public Object getTeluguLanguageNews() throws Exception {
@@ -181,5 +177,14 @@ public class NewsService {
 
     public void deleteNews(Long newsId) {
         dailyNewsCacheRepository.deleteById(newsId);
+    }
+
+    public Object fetchJobsNewsByLangAndCategoryFromNewsData(String language, String category) {
+        return newsDataClient.getJobsNews("job alerts", language, category);
+    }
+
+    public Object getJobsNewsByLangAndCategory(String deviceId) {
+        Users user =userService.getUserDetails(deviceId);
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("jobs",user.getLanguage());
     }
 }

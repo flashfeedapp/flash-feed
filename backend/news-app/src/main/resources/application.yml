@@ -2,7 +2,9 @@ spring:
   application:
     name: news-app
   datasource:
-    url: jdbc:${DATABASE_URL}
+    url: jdbc:postgresql://localhost:5432/flash_feed
+    username: postgres
+    password: akhil@123
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
