@@ -8,56 +8,56 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/news/v1")
+@RequestMapping("api/v1/news")
 public class NewsController {
 
     @Autowired
     private NewsService newsService;
 
     @GetMapping("/national")
-    public ResponseEntity<Object> getNationalNews(@RequestParam String deviceId){
+    public ResponseEntity<Object> getNationalNews(@RequestParam String deviceId) throws Exception {
         Object nationalNewsResponse = newsService.getNationalNews(deviceId);
         return new ResponseEntity<>(nationalNewsResponse, HttpStatus.OK);
     }
 
     @GetMapping("/state")
-    public Object getStateLevelNewsByState(@RequestParam String deviceId) {
+    public Object getStateLevelNewsByState(@RequestParam String deviceId) throws Exception {
         Object stateNewsResponse = newsService.getStateNewsByKeyword(deviceId);
         return new ResponseEntity<>(stateNewsResponse, HttpStatus.OK);
     }
 
     @GetMapping("/world")
-    public Object getWorldNews(@RequestParam String deviceId) {
+    public Object getWorldNews(@RequestParam String deviceId) throws Exception {
         Object worldNewsResponse = newsService.getWorldNewsByLangAndCategory(deviceId);
         return new ResponseEntity<>(worldNewsResponse, HttpStatus.OK);
     }
 
     @GetMapping("/business")
-    public Object getBusinessNews(@RequestParam String deviceId) {
+    public Object getBusinessNews(@RequestParam String deviceId) throws Exception {
         Object businessNewsResponse = newsService.getBusinessNewsByLangAndCategory(deviceId);
         return new ResponseEntity<>(businessNewsResponse, HttpStatus.OK);
     }
 
     @GetMapping("/jobs")
-    public Object getJobsNews(@RequestParam String deviceId) {
+    public Object getJobsNews(@RequestParam String deviceId) throws Exception {
         Object jobsNewsResponse = newsService.getJobsNewsByLangAndCategory(deviceId);
         return new ResponseEntity<>(jobsNewsResponse, HttpStatus.OK);
     }
 
     @GetMapping("/health")
-    public Object getHealthNews(@RequestParam String deviceId) {
+    public Object getHealthNews(@RequestParam String deviceId) throws Exception {
         Object worldNewsResponse = newsService.getHealthNewsByLangAndCategory(deviceId);
         return new ResponseEntity<>(worldNewsResponse, HttpStatus.OK);
     }
 
     @GetMapping("/technology")
-    public Object getTechnologyNews(@RequestParam String deviceId) {
+    public Object getTechnologyNews(@RequestParam String deviceId) throws Exception {
         Object worldNewsResponse = newsService.getTechnologyNewsByLangAndCategory(deviceId);
         return new ResponseEntity<>(worldNewsResponse, HttpStatus.OK);
     }
 
     @GetMapping("/entertainment")
-    public Object getEntertainmentNews(@RequestParam String deviceId) {
+    public Object getEntertainmentNews(@RequestParam String deviceId) throws Exception {
         Object entertainmentNewsResponse = newsService.getEntertainmentNewsByLangAndCategory(deviceId);
         return new ResponseEntity<>(entertainmentNewsResponse, HttpStatus.OK);
     }

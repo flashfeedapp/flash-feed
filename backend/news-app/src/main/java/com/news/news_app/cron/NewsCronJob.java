@@ -101,6 +101,12 @@ public class NewsCronJob {
         );
 
         saveNews(
+                newsService.fetchJobsNewsByLangAndCategoryFromNewsData("hi", "top"),
+                "jobs",
+                "hi", null, null
+        );
+
+        saveNews(
                 newsService.fetchBusinessNewsByLanguageFromNewsData("hi", "business"),
                 "business",
                 "hi", null, null
@@ -141,6 +147,12 @@ public class NewsCronJob {
         saveNews(
                 newsService.fetchWorldNewsByLangAndCategoryFromNewsData("en", "world"),
                 "world",
+                "en", null, null
+        );
+
+        saveNews(
+                newsService.fetchJobsNewsByLangAndCategoryFromNewsData("en", "top"),
+                "jobs",
                 "en", null, null
         );
 
