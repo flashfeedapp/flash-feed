@@ -47,9 +47,6 @@ public class UserService {
         return userRepository.findByDeviceId(deviceId).orElseGet(() -> {
             Users user = new Users();
             user.setDeviceId(deviceId);
-            user.setState("Telangana");
-            user.setCountry("India");
-            user.setLanguage("te");
             user.setRole("user");
             user.setCreatedAt(LocalDateTime.now());
             return userRepository.save(user);
