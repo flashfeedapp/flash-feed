@@ -2,12 +2,16 @@ spring:
   application:
     name: news-app
   datasource:
-    url: jdbc:postgresql://localhost:5432/flash_feed
-    username: postgres
-    password: akhil@123
+#    url: jdbc:postgresql://localhost:5432/flash_feed
+#    username: postgres
+#    password: akhil@123
+    url: jdbc:postgresql://dpg-d6e7f1sr85hc73ccba9g-a.oregon-postgres.render.com:5432/flashfeed_uzvp?sslmode=require
+    username: flashfeed_uzvp_user
+    password: wYRSJu1gdWh8M8vxvGzAEbtKLDblqhad
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
       ddl-auto: update
     show-sql: true
     properties:
