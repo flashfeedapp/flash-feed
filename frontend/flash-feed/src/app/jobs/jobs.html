@@ -1,0 +1,61 @@
+<div class="section-header" (click)="toggle('govt')">
+  <span class="section-title">
+    <span class="arrow">{{ showGovt ? '▼' : '▶' }}</span>
+    🏛 Government Jobs
+  </span>
+</div>
+
+<div *ngIf="showGovt">
+  <div class="job-item" *ngFor="let job of govtJobs" (click)="openJob(job.applyLink)">
+    <div class="job-text">
+      <div class="job-title">{{ job.title }}</div>
+      <div class="job-summary">Qualification: {{ job.qualification }}</div>
+      <div class="job-summary">Last Date: {{ job.lastDate }}</div>
+    </div>
+    <div class="job-arrow">›</div>
+  </div>
+</div>
+
+
+<div class="section-header" (click)="toggle('private')">
+  <span class="section-title">
+    <span class="arrow">{{ showPrivate ? '▼' : '▶' }}</span>
+    💼 Private Jobs
+  </span>
+</div>
+
+<div *ngIf="showPrivate">
+  <div class="job-item" *ngFor="let job of privateJobs" (click)="openJob(job.applyLink)">
+    <div class="job-text">
+      <div class="job-title">{{ job.title }}</div>
+      <div class="job-summary">Qualification: {{ job.qualification }}</div>
+      <div class="job-summary">Last Date: {{ job.lastDate }}</div>
+    </div>
+    <div class="job-arrow">›</div>
+  </div>
+</div>
+
+
+<div class="section-header" (click)="toggle('news')">
+  <span class="section-title">
+    <span class="arrow">{{ showNews ? '▼' : '▶' }}</span>
+    📰 Job News
+  </span>
+</div>
+
+<div *ngIf="showNews">
+  <!-- News card -->
+  <div class="news-card" (click)="openJob(news.applyLink)" *ngFor="let news of jobNews; let i = index">
+    <img [src]="news.imageUrl" alt="{{news.title}}" class="news-image">
+    <div class="news-body">
+      <div class="news-title">{{news.title}}</div>
+      <div class="news-summary">{{news.summary}}</div>
+      <div class="card-actions">
+        <div class="left-info">
+          <span class="news-source">{{news.source}}</span>
+          <span class="dot">.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

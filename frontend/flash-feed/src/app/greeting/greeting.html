@@ -1,0 +1,45 @@
+<div class="admin-container">
+
+
+    <div *ngIf="visible && greeting" class="greeting-card">
+        <span class="greeting-close" (click)="closeGreeting()">×</span>
+        <h2>✨ {{ greeting.title }}</h2>
+        <p>{{ greeting.message }}</p>
+    </div>
+
+    <button class="save-btn" (click) = "openGreetingBox()"> Add Greetings</button>
+    <div *ngIf = "showNewGreeting">
+        <h2>🎉 Festival Greeting Management</h2>
+
+        <div class="form-card">
+
+            <label>Greeting Title</label>
+            <input type="text" [(ngModel)]="greeting.title" placeholder="Ex: Happy Diwali ✨" />
+
+            <label>Greeting Message</label>
+            <textarea rows="4" [(ngModel)]="greeting.message" placeholder="Enter festival message here...">
+    </textarea>
+
+            <label>Festival Date</label>
+            <input type="date" [(ngModel)]="greeting.festivalDate" />
+
+            <div class="checkbox">
+                <input type="checkbox" [(ngModel)]="greeting.active" />
+                <span>Activate this greeting</span>
+            </div>
+
+            <button (click)="saveGreeting()" class="save-btn">
+                Save Greeting
+            </button>
+
+            <button (click)="deactivateAll()" class="danger-btn">
+                Deactivate All
+            </button>
+
+            <p class="success" *ngIf="successMessage">{{ successMessage }}</p>
+            <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">flash-feed</string>
+    <string name="title_activity_main">flash-feed</string>
+    <string name="package_name">com.flashfeed.app</string>
+    <string name="custom_url_scheme">com.flashfeed.app</string>
+</resources>

@@ -1,0 +1,39 @@
+<div class="facts-container">
+
+    <h2>💡 Interesting Facts</h2>
+
+    <div *ngFor="let fact of facts" class="fact-card">
+
+        <div class="category">
+            {{fact.category}}
+        </div>
+
+        <div class="hook">
+            Did you know?
+        </div>
+
+        <div class="fact">
+            {{fact.fact}}
+        </div>
+
+        <div class="short">
+            {{fact.shortExplanation}}
+        </div>
+
+        <button class="know-btn" (click)="toggleMore(fact)">
+            Know More
+        </button>
+
+        <div *ngIf="fact.expanded" class="more">
+            {{fact.moreDetails}}
+        </div>
+
+        <div class="actions">
+
+            <span>🔗 Share</span>
+
+        </div>
+
+    </div>
+
+</div>

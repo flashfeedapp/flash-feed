@@ -1,0 +1,261 @@
+/*.stories-page {
+  min-height: 100vh;
+  padding: 30px 14px 60px;
+  display: flex;
+  justify-content: center;
+
+  background:
+    radial-gradient(circle at top, rgba(120,140,255,0.15), transparent 60%),
+    linear-gradient(180deg, #1f2437, #141827);
+
+  color: #eaeaf0;
+  font-family: "Georgia", "Times New Roman", serif;
+}
+
+.stories-container {
+  max-width: 760px;
+  width: 100%;
+}
+
+/* ===== STORY CARD ===== */
+/*.story-card {
+  margin-bottom: 26px;
+  padding: 26px 18px 30px;
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.10);
+  background-image: url("https://images.unsplash.com/photo-1519681393784-d120267933ba");
+  background-size: cover;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.story-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.55),
+    0 0 18px rgba(120, 140, 255, 0.15);
+}
+
+.story-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.story-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  font-size: 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  margin-bottom: 12px;
+}
+
+.story-title {
+  font-size: 28px;
+  line-height: 1.35;
+  margin: 10px 0 6px;
+  color: #ffffff;
+}
+
+.story-meta {
+  font-size: 14px;
+  color: #c3c6d6;
+}
+
+.story-content {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #f0f2fa;
+}
+
+.story-content p {
+  margin-bottom: 20px;
+}
+
+/* Drop cap */
+/*.story-content p:first-child::first-letter {
+  font-size: 54px;
+  font-weight: bold;
+  float: left;
+  line-height: 1;
+  margin-right: 10px;
+  color: #aab4ff;
+}
+
+.story-moral {
+  margin-top: 24px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.28);
+  color: #ffd86b;
+  font-size: 16.5px;
+  border-left: 4px solid rgba(255, 216, 107, 0.6);
+}*/
+
+
+/* ===== PAGE BACKGROUND ===== */
+/* ===== PAGE BACKGROUND ===== */
+.stories-page {
+  min-height: 100vh;
+  padding: 30px 14px 60px;
+  display: flex;
+  justify-content: center;
+
+  background:
+    radial-gradient(circle at top, rgba(120,140,255,0.15), transparent 60%),
+    linear-gradient(180deg, #1f2437, #141827);
+
+  color: #eaeaf0;
+  font-family: "Georgia", "Times New Roman", serif;
+}
+
+/* ===== CONTAINER ===== */
+.stories-container {
+  width: 100%;
+  max-width: 900px;
+}
+
+/* ===== STORY CARD ===== */
+.story-card {
+  position: relative;
+  margin-bottom: 28px;
+  padding: 26px 20px 32px;
+  border-radius: 22px;
+  overflow: hidden;
+
+  background: rgba(20, 24, 39, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ===== IMAGE LAYER ===== */
+.story-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image: url("https://images.unsplash.com/photo-1519681393784-d120267933ba");
+  background-size: cover;
+  background-position: center;
+
+  opacity: 0.48;   /* ⬅️ was 0.35 */
+  z-index: 0;
+}
+
+
+/* ===== DARK OVERLAY (READABILITY) ===== */
+.story-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.38),  /* ⬅️ was 0.55 */
+    rgba(0, 0, 0, 0.58)  /* ⬅️ was 0.75 */
+  );
+  z-index: 1;
+}
+
+
+/* ===== CONTENT ABOVE IMAGE ===== */
+.story-header,
+.story-content,
+.story-moral {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== HOVER EFFECT ===== */
+.story-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.55),
+    0 0 18px rgba(120, 140, 255, 0.18);
+}
+
+/* ===== HEADER ===== */
+.story-header {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.story-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  font-size: 13px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.story-title {
+  font-size: 28px;
+  line-height: 1.35;
+  margin: 10px 0 6px;
+  color: #f5f6ff;
+}
+
+.story-meta {
+  font-size: 14px;
+  color: #c3c6d6;
+}
+
+/* ===== STORY CONTENT ===== */
+.story-content {
+  font-size: 16.5px;
+  line-height: 1.85;
+  color: #e4e7f2;
+  white-space: pre-line;
+}
+
+.story-content p {
+  margin-bottom: 20px;
+}
+
+/* ===== DROP CAP ===== */
+.story-content p:first-child::first-letter {
+  font-size: 56px;
+  font-weight: bold;
+  float: left;
+  line-height: 1;
+  margin-right: 10px;
+  color: #aab4ff;
+}
+
+/* ===== MORAL / HIGHLIGHT ===== */
+.story-moral {
+  margin-top: 26px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #ffd86b;
+  font-size: 16.5px;
+  border-left: 4px solid rgba(255, 216, 107, 0.6);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 768px) {
+  .story-card {
+    padding: 32px 36px 40px;
+  }
+
+  .story-title {
+    font-size: 30px;
+  }
+
+  .story-content {
+    font-size: 17px;
+  }
+}

@@ -1,0 +1,191 @@
+.dark {
+    --bg: #0f172a;
+    --card: #2a2f44;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+}
+
+.global-container {
+    //background: var(--bg);
+    background: #0f172a;
+    border: none;
+    font-size: 20px;
+    color: #e5e7eb;
+    //padding: 16px;
+    min-height: 100vh;
+    //color: var(--text);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.toggle-theme {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--muted);
+}
+
+/* Menu Button */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* title follows the menu */
+    gap: 12px; /* space between menu and title */
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    position: relative;
+    left: -13px;
+}
+
+.menu-btn {
+    position: relative; /* no longer fixed or absolute */
+    font-size: 22px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    color: #ffffff;
+    padding: 6px 10px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    opacity: 0.9;
+}
+
+.menu-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.bottom-nav button:hover {
+    color: #fff;
+}
+
+.bottom-nav button.submit {
+    color: #fff;
+    animation: glow 3s infinite alternate;
+}
+
+/* Floating Container */
+.fab-container {
+  position: fixed;
+  bottom: 85px;   /* moved above bottom nav */
+  left: 16px;
+  z-index: 2000;
+}
+
+/* Main Circle Button */
+.fab-main {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #ff5252, #ff1744);
+  color: white;
+
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+}
+
+.fab-main:hover {
+  transform: scale(1.05);
+}
+
+/* Hidden Menu */
+.fab-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  position: absolute;
+  bottom: 70px;
+  left: 0;
+
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+
+  transition: all 0.3s ease;
+}
+
+/* Show Menu */
+.fab-menu.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Menu Buttons */
+.fab-menu button {
+  background: #1f2437;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 30px;
+  font-size: 14px;
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: background 0.2s ease;
+}
+
+.fab-menu button:hover {
+  background: #2a2f44;
+}
+
+.splash-screen {
+
+  height: 100vh;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: radial-gradient(
+      circle at center,
+      #0b1c3a 0%,
+      #0a1428 40%,
+      #050913 100%
+  );
+
+  overflow: hidden;
+
+}
+
+/* LOGO */
+
+.splash-logo {
+
+  width: 320px;
+  max-width: 80%;
+
+  filter: drop-shadow(0 0 25px rgba(70,150,255,0.6));
+
+  animation: logoFade 1.4s ease;
+
+}
+
+/* smooth appearance */
+
+@keyframes logoFade {
+
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}

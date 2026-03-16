@@ -1,0 +1,16 @@
+<div class="stories-page">
+    <!--h2>Read Interesting Stories</h2-->
+    <div class="stories-container">
+        <div class="story-card" *ngFor="let story of stories">
+            <div class="story-header">
+                <div class="story-badge"> {{story.source}}</div>
+                <div class="story-title"> {{story.title}}</div>
+            </div>
+
+            <div class="story-content">
+                {{story.summary}}
+            </div>
+        </div>
+    </div>
+
+</div>

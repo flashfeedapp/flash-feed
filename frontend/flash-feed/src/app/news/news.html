@@ -1,0 +1,117 @@
+<div>
+    <div class="tabs-wrapper">
+        <div #tabContainer class="tabs">
+            <!-- Always shown tabs -->
+            <div class="tab" [class.active]="selectedTab === 'State'" (click)="selectTab('State')">State</div>
+            <div class="tab" [class.active]="selectedTab === 'National'" (click)="selectTab('National')">National
+            </div>
+            <div class="tab" [class.active]="selectedTab === 'World'" (click)="selectTab('World')">
+                International</div>
+
+            <!-- Extra tabs shown conditionally -->
+            <!--div class="tab" *ngIf=showMoreTabs [class.active]="selectedTab === 'Jobs'" (click)="selectTab('Jobs')">
+                Jobs</div-->
+            <div class="tab" *ngIf=showMoreTabs [class.active]="selectedTab === 'Business'"
+                (click)="selectTab('Business')">
+                Business</div>
+
+            <div class="tab" *ngIf=showMoreTabs [class.active]="selectedTab === 'Health'" (click)="selectTab('Health')">
+                Health</div>
+            <div class="tab" *ngIf=showMoreTabs [class.active]="selectedTab === 'Technology'"
+                (click)="selectTab('Technology')">Technology</div>
+            <div class="tab" *ngIf=showMoreTabs [class.active]="selectedTab === 'Entertainment'"
+                (click)="selectTab('Entertainment')">Entertainment</div>
+
+            <div class="tab more" (click)="showMoreTabs = !showMoreTabs">
+                {{showMoreTabs ? 'Less' : 'More'}}
+            </div>
+        </div>
+    </div>
+
+    <app-greeting></app-greeting>
+
+    <!-- Top Banner Add-->
+    <div class="ad-container">
+        <!-- <ins class="adsbygoogle" style="display:block; min-height: 90px" data-ad-client="ca-pub-3940256099942544"
+            data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true">
+        </ins> -->
+        <div style="height:90px;background:#2a2f44;text-align:center;line-height:90px;color: darkgray;">
+            AD WILL APPEAR HERE
+        </div>
+    </div>
+
+    <div class="news-list">
+        <div *ngIf="isAdmin" class="add-news-top">
+            <button (click)="openAddNews()">+ Add News</button>
+        </div>
+        <ng-container *ngFor="let news of newsList; let i = index">
+
+            <!-- News card -->
+            <div class="news-card" (click)="openArticle(news.link)">
+                <img [src]="news.imageUrl" alt="{{news.title}}" class="news-image">
+                <div class="news-body">
+                    <div class="news-title">{{news.title}}</div>
+                    <div class="news-summary">{{ truncate(news.summary, 200) }}</div>
+                    <div class="card-actions">
+                        <div class="left-info">
+                            <span class="news-source">{{news.source}}</span>
+                            <span class="dot">.</span>
+                            <span class="news.time">{{formatDate(news.time)}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="update" (click)="updateNews(news)">Update</button>
+                <button class="delete" (click)="deleteNews(news.id)">Delete</button>
+            </div>
+
+            <!-- AD after every 5 news cards  -->
+            <div *ngIf="i > 0 && i % 3 === 0" class="inline-ad">
+                <!-- TO uncomment when receving ads-->
+                <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3940256099942544"
+                    data-ad-slot="6300978111" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
+                <div style="height:90px;background:#2a2f44;text-align:center;line-height:90px;color: darkgray;">
+                    AD WILL APPEAR HERE
+                </div>
+            </div>
+
+
+        </ng-container>
+
+        <div *ngIf="newsList?.length === 0" class="no-data">
+            No news available for {{selectedTab}}
+        </div>
+    </div>
+
+    <div class="bottom-ad">
+        <!-- TO uncomment when receving ads-->
+        <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3940256099942544"
+            data-ad-slot="6300978111" data-ad-format="auto"></ins> -->
+        <div style="height:90px;background:#2a2f44;text-align:center;line-height:90px;color: darkgray;">
+            AD WILL APPEAR HERE
+        </div>
+    </div>
+
+    <div class="add-news-modal" *ngIf="showAddNews">
+        <div class="add-news-card">
+            <h3>Add Latest News</h3>
+            <input [(ngModel)]="newNews.title" placeholder="Title">
+            <input [(ngModel)]="newNews.source" placeholder="Source">
+            <input [(ngModel)]="newNews.imageUrl" placeholder="Image Url">
+            <input [(ngModel)]="newNews.link" placeholder="Article Link">
+            <input [(ngModel)]="newNews.time" placeholder="Published Time">
+            <input [(ngModel)]="newNews.language" placeholder="Language">
+            <input [(ngModel)]="newNews.state" placeholder="State">
+            <input [(ngModel)]="newNews.country" placeholder="Country">
+            <textarea [(ngModel)]="newNews.summary" placeholder="Short Summary"></textarea>
+
+            <div class="actions">
+                <button (click)=addNews()>Save</button>
+                <button class="cancel" (click)="showAddNews = false">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+</div>

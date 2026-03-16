@@ -9,6 +9,7 @@ import com.news.news_app.entity.DailyNewsCache;
 import com.news.news_app.entity.Users;
 import com.news.news_app.mapper.DailyNewsCacheMapper;
 import com.news.news_app.repository.DailyNewsCacheRepository;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -46,24 +47,35 @@ public class NewsService {
     @Autowired
     private UserService userService;
 
-    public Object getNationalNews(String deviceId) throws Exception {
+    public Object getNationalNews(String language, String country, String deviceId) throws Exception {
         //return gNewsClient.getNationalNewsByGNews("nation","en", "None",1,"in");
         //return newsDataClient.getNationalNewsByCountryAndLanguage(country,language, category);
 
-        Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("national", user.getLanguage());
+        if (StringUtils.isNotEmpty(deviceId)) {
+            Users user = userService.getUserDetails(deviceId);
+            language = user.getLanguage();
+        }
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("national", language);
     }
 
-    public Object getStateNewsByKeyword(String deviceId) throws Exception {
+    public Object getStateNewsByKeyword(String state, String language, String country, String deviceId) throws Exception {
         //return newsDataClient.getStateNewsByKeyword(keyword,language, category);
-        Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseAndStateIgnoreCaseAndCountryIgnoreCaseOrderByPublishedAtDesc("state", user.getLanguage(), user.getState(), user.getCountry());
+        if (StringUtils.isNotEmpty(deviceId)) {
+            Users user = userService.getUserDetails(deviceId);
+            language = user.getLanguage();
+            state = user.getState();
+            country = user.getCountry();
+        }
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseAndStateIgnoreCaseAndCountryIgnoreCaseOrderByPublishedAtDesc("state", language, state, country);
     }
 
-    public Object getWorldNewsByLangAndCategory(String deviceId) throws Exception {
+    public Object getWorldNewsByLangAndCategory(String language, String deviceId) throws Exception {
         //return newsDataClient.getWorldNews(language,category);
-        Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("world", user.getLanguage());
+        if (StringUtils.isNotEmpty(deviceId)) {
+            Users user = userService.getUserDetails(deviceId);
+            language = user.getLanguage();
+        }
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("world", language);
     }
 
     public Object fetchNationalNewsFromNewsData(String country, String language, String category) {
@@ -79,29 +91,41 @@ public class NewsService {
         return newsDataClient.getWorldNews(language,category);
     }
 
-    public Object getBusinessNewsByLangAndCategory(String deviceId) throws Exception {
+    public Object getBusinessNewsByLangAndCategory(String language, String deviceId) throws Exception {
         //return newsDataClient.getBusinessNews(language,"business");
-        Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("business", user.getLanguage());
+        if (StringUtils.isNotEmpty(deviceId)) {
+            Users user = userService.getUserDetails(deviceId);
+            language = user.getLanguage();
+        }
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("business", language);
     }
 
-    public Object getHealthNewsByLangAndCategory(String deviceId) throws Exception {
+    public Object getHealthNewsByLangAndCategory(String language, String deviceId) throws Exception {
         //return currentsApiClient.getHealthNews(language,category);
         //return newsDataClient.getHealthNews("health", "te");
-        Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("health", user.getLanguage());
+        if (StringUtils.isNotEmpty(deviceId)) {
+            Users user = userService.getUserDetails(deviceId);
+            language = user.getLanguage();
+        }
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("health", language);
     }
 
-    public Object getTechnologyNewsByLangAndCategory(String deviceId) throws Exception {
+    public Object getTechnologyNewsByLangAndCategory(String language, String deviceId) throws Exception {
         //return newsDataClient.getTechnologyNews(language,"technology");
-        Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("technology",user.getLanguage());
+        if (StringUtils.isNotEmpty(deviceId)) {
+            Users user = userService.getUserDetails(deviceId);
+            language = user.getLanguage();
+        }
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("technology",language);
     }
 
-    public Object getEntertainmentNewsByLangAndCategory(String deviceId) throws Exception {
+    public Object getEntertainmentNewsByLangAndCategory(String language, String deviceId) throws Exception {
         //return newsDataClient.getEntertainmentNews(language,"entertainment");
-        Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("entertainment",user.getLanguage());
+        if (StringUtils.isNotEmpty(deviceId)) {
+            Users user = userService.getUserDetails(deviceId);
+            language = user.getLanguage();
+        }
+        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("entertainment",language);
     }
 
     public Object getTeluguLanguageNews() throws Exception {

@@ -1,0 +1,49 @@
+<div class="language-section">
+
+    <div class="section-header" (click)="showCountries = !showCountries">
+        <span>🌐 countries</span>
+        <span>{{ showCountries ? '▲' : '▼' }}</span>
+    </div>
+
+    <ul class="country-list" *ngIf="showCountries">
+        <li *ngFor="let country of countries" class="country-item">
+            <label class="switch">
+                <input type="checkbox" [checked]="country.enabled" (click)="toggleCountry(country)">
+                <span class="slider"></span>
+            </label>
+
+            <span class="country-name">{{ country.name }}</span>
+        </li>
+    </ul>
+
+    <div class="section-header" (click)="showStates = !showStates">
+        <span>📍 State</span>
+        <span>{{ showStates ? '▲' : '▼' }}</span>
+    </div>
+
+    <ul class="state-list" *ngIf="showStates">
+        <li *ngFor="let state of states" class="state-item">
+            <label class="switch">
+                <input type="checkbox" [checked]="state.enabled" (click)="toggleState(state)">
+                <span class="slider"></span>
+            </label>
+            <span class="state-name">{{ state.name }}</span>
+        </li>
+    </ul>
+
+    <div class="section-header" (click)="showLanguages = !showLanguages">
+        <span>🌐 Language</span>
+        <span>{{ showLanguages ? '▲' : '▼' }}</span>
+    </div>
+
+    <ul class="language-list" *ngIf="showLanguages">
+        <li *ngFor="let lang of selectedLanguages" class="lang-item">
+            <label class="switch">
+                <input type="checkbox" [checked]="lang.enabled" (click)="toggleLanguage(lang)">
+                <span class="slider"></span>
+            </label>
+
+            <span class="lang-name">{{ lang.name }}</span>
+        </li>
+    </ul>
+</div>
