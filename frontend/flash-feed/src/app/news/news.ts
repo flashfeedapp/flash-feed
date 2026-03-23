@@ -8,6 +8,7 @@ import { NewsService } from '../services/news.service';
 import { Router } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 import { Greeting } from '../greeting/greeting';
+import { Share } from '@capacitor/share';
 
 declare var adsbygoogle: any
 type NewsTab =
@@ -33,9 +34,8 @@ export class News {
   showMoreTabs: boolean = false;
   newsList: NewsItem[] = [];
 
-
   showAddNews: boolean = false;
-  isAdmin = true;
+  isAdmin = false;
 
   newNews: any = {
     id: '',
@@ -58,6 +58,7 @@ export class News {
   constructor(private newsService: NewsService, private router: Router) { }
 
   ngOnInit(): void {
+    this.isAdmin = localStorage.getItem('userRole') == 'Admin';
     this.preloadAllTabs();
   }
 
@@ -251,6 +252,44 @@ export class News {
         console.error('Delete failed', err);
       }
     });
+  }
+
+  shareContent(item: any, event: Event) {
+    event.stopPropagation();
+
+    const text = `${item.title}
+
+${this.truncate(item.summary, 120)}
+
+Read more on News Bird 👇
+https://play.google.com/store/apps/details?id=YOUR_APP_ID`;
+
+    // ✅ Native app
+    if (window && (window as any).Capacitor?.isNativePlatform?.()) {
+      import('@capacitor/share').then(({ Share }) => {
+        Share.share({
+          title: 'Flash Feed',
+          text: text
+        });
+      });
+      return;
+    }
+
+    // ✅ Modern mobile browsers (HTTPS only)
+    if (navigator.share) {
+      navigator.share({
+        title: 'Flash Feed',
+        text: text
+      }).catch(() => { });
+    }
+    // ✅ Final fallback (always works)
+    else {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Copied! Share anywhere 👍');
+      }).catch(() => {
+        alert(text); // worst case fallback
+      });
+    }
   }
 
 }

@@ -60,6 +60,7 @@
     font-size: 20px;
     font-weight: 600;
     color: var(--text);
+    font-style: italic;
 }
 
 .bottom-nav button:hover {
@@ -72,74 +73,74 @@
 }
 
 /* Floating Container */
-.fab-container {
-  position: fixed;
-  bottom: 85px;   /* moved above bottom nav */
-  left: 16px;
-  z-index: 2000;
-}
+// .fab-container {
+//   position: fixed;
+//   bottom: 85px;   /* moved above bottom nav */
+//   left: 16px;
+//   z-index: 2000;
+// }
 
 /* Main Circle Button */
-.fab-main {
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  border: none;
-  font-size: 22px;
-  cursor: pointer;
+// .fab-main {
+//   width: 55px;
+//   height: 55px;
+//   border-radius: 50%;
+//   border: none;
+//   font-size: 22px;
+//   cursor: pointer;
 
-  background: linear-gradient(135deg, #ff5252, #ff1744);
-  color: white;
+//   background: linear-gradient(135deg, #ff5252, #ff1744);
+//   color: white;
 
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-  transition: all 0.3s ease;
-}
+//   box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+//   transition: all 0.3s ease;
+// }
 
-.fab-main:hover {
-  transform: scale(1.05);
-}
+// .fab-main:hover {
+//   transform: scale(1.05);
+// }
 
 /* Hidden Menu */
-.fab-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+// .fab-menu {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 10px;
 
-  position: absolute;
-  bottom: 70px;
-  left: 0;
+//   position: absolute;
+//   bottom: 70px;
+//   left: 0;
 
-  opacity: 0;
-  transform: translateY(20px);
-  pointer-events: none;
+//   opacity: 0;
+//   transform: translateY(20px);
+//   pointer-events: none;
 
-  transition: all 0.3s ease;
-}
+//   transition: all 0.3s ease;
+// }
 
 /* Show Menu */
-.fab-menu.show {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
+// .fab-menu.show {
+//   opacity: 1;
+//   transform: translateY(0);
+//   pointer-events: auto;
+// }
 
 /* Menu Buttons */
-.fab-menu button {
-  background: #1f2437;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 30px;
-  font-size: 14px;
-  cursor: pointer;
+// .fab-menu button {
+//   background: #1f2437;
+//   color: white;
+//   border: none;
+//   padding: 10px 16px;
+//   border-radius: 30px;
+//   font-size: 14px;
+//   cursor: pointer;
 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  transition: background 0.2s ease;
-}
+//   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+//   transition: background 0.2s ease;
+// }
 
-.fab-menu button:hover {
-  background: #2a2f44;
-}
+// .fab-menu button:hover {
+//   background: #2a2f44;
+// }
 
 .splash-screen {
 
@@ -188,4 +189,131 @@
     transform: scale(1);
   }
 
+}
+
+.page-wrapper{
+  padding-bottom:70px;
+}
+
+/* Floating Container */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  background: #0f172a;
+
+  padding: 6px 8px;
+  box-sizing: border-box;   /* 🔥 IMPORTANT */
+
+  z-index: 1000;
+}
+
+.nav-item {
+  flex: 1;                 /* 🔥 equal width */
+  text-align: center;
+
+  border: none;
+  background: transparent;
+  color: #9ca3af;
+
+  font-size: 13px;
+  padding: 6px 0;
+
+  border-radius: 10px;
+}
+
+/* ACTIVE PILL */
+
+.nav-item.active {
+
+  background: linear-gradient(
+      135deg,
+      #ff5252,
+      #ff1744
+  );
+
+  color: white;
+
+  box-shadow: 0 3px 10px rgba(255,82,82,0.5);
+
+}
+
+/* click feel */
+
+.nav-item:active {
+  transform: scale(0.95);
+}
+
+.page-wrapper{
+  padding-bottom:70px;
+}
+
+/* Floating Container */
+.fab-container {
+  display: flex;
+  align-items: center;
+}
+
+.fab-main {
+  border: none;
+  background: transparent;
+  color: #9ca3af;
+
+  font-size: 16px;
+  padding: 6px 8px;
+}
+
+/* active feel */
+.fab-main:active {
+  transform: scale(0.95);
+}
+
+.fab-main:hover {
+  transform: scale(1.05);
+}
+
+/* Hidden Menu */
+.fab-menu {
+  position: absolute;
+  bottom: 55px;   /* open above nav */
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+
+  transition: all 0.3s ease;
+}
+
+.fab-menu.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Menu Buttons */
+.fab-menu button {
+  background: #1f2437;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 30px;
+  font-size: 14px;
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: background 0.2s ease;
+}
+
+.fab-menu button:hover {
+  background: #2a2f44;
 }

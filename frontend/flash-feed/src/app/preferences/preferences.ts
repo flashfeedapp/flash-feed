@@ -70,7 +70,7 @@ export class Preferences {
     if (Capacitor.isNativePlatform()) {
 
       this.newsService.getUserDetails().subscribe(user => {
-
+        localStorage.setItem('userRole', user.role);
         this.states.forEach(s => s.enabled = false);
 
         const stateMatched = this.states.find(s => s.name === user.state);

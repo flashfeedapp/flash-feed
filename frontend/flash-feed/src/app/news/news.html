@@ -58,11 +58,12 @@
                             <span class="dot">.</span>
                             <span class="news.time">{{formatDate(news.time)}}</span>
                         </div>
+                        <button class="share-btn" (click)="shareContent(news, $event)">🔗 Share</button>
                     </div>
                 </div>
             </div>
 
-            <div class="button-group">
+            <div *ngIf="isAdmin" class="button-group">
                 <button class="update" (click)="updateNews(news)">Update</button>
                 <button class="delete" (click)="deleteNews(news.id)">Delete</button>
             </div>

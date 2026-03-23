@@ -23,7 +23,7 @@ type NewsTab =
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterOutlet, RouterLink,RouterLinkActive],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })

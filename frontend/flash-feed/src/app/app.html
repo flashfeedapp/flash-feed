@@ -1,37 +1,64 @@
-
 <!-- SPLASH SCREEN -->
 <div *ngIf="showSplash" class="splash-screen">
 
-    <img [src]="'/images/bird5.png'" class="splash-logo">
+  <img [src]="'/images/bird5.png'" class="splash-logo">
 
 </div>
 
 <div *ngIf="!showSplash" [class.dark]="showDarkMode" class="global-container">
-    <header class="header">
-        <button class="menu-btn">☰</button>
-        <div class="title">Flash Feed</div>
-        <!--button class="toggle-theme" (click)="toggleTheme()">Toggle</button-->
-    </header>
+  <header class="header">
+    <div class="title">News Bird</div>
+    <!--button class="toggle-theme" (click)="toggleTheme()">Toggle</button-->
+  </header>
 
-    <!-- 🔵 PAGE CONTENT GOES HERE -->
-    <main class="content-area">
-        <router-outlet></router-outlet>
-    </main>
+  <!-- 🔵 PAGE CONTENT GOES HERE -->
+  <main class="content-area">
+    <router-outlet></router-outlet>
+  </main>
 
 
-    <!-- Floating Toggle Button -->
-<div class="fab-container">
-  
-  <button class="fab-main" (click)="toggleBottomNav()">
-    {{ showBottomNav ? '✕' : '☰' }}
-  </button>
+  <div class="bottom-nav">
 
-  <div class="fab-menu" [class.show]="showBottomNav">
-    <button (click)="navigateAndClose('/home')">🏠 Home</button>
-    <button (click)="navigateAndClose('/news-videos')">🎥 Videos</button>
-    <button (click)="navigateAndClose('/settings')">⚙️ Settings</button>
-    <button (click)="navigateAndClose('/submit')">✉️ Submit</button>
+    <div class="fab-container">
+
+      <button class="fab-main" (click)="toggleBottomNav()">
+        {{ showBottomNav ? '✕' : '☰' }}
+      </button>
+
+      <div class="fab-menu" [class.show]="showBottomNav">
+        <button (click)="navigateAndClose('/home')">🏠 Home</button>
+        <button (click)="navigateAndClose('/settings')">⚙️ Settings</button>
+      </div>
+    </div>
+
+    <button class="nav-item" routerLink="/news" routerLinkActive="active">
+
+      <span class="icon">📰</span>
+      <span class="label">News</span>
+
+    </button>
+
+    <button class="nav-item" routerLink="/jobs" routerLinkActive="active">
+
+      <span class="icon">💼</span>
+      <span class="label">Jobs</span>
+
+    </button>
+
+    <button class="nav-item" routerLink="/facts" routerLinkActive="active">
+
+      <span class="icon">💡</span>
+      <span class="label">Facts</span>
+
+    </button>
+
+    <button class="nav-item" routerLink="/stories" routerLinkActive="active">
+
+      <span class="icon">📚</span>
+      <span class="label">Stories</span>
+
+    </button>
+
   </div>
-</div>
 
 </div>

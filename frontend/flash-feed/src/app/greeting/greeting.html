@@ -7,7 +7,7 @@
         <p>{{ greeting.message }}</p>
     </div>
 
-    <button class="save-btn" (click) = "openGreetingBox()"> Add Greetings</button>
+    <button *ngIf="isAdmin" class="save-btn" (click) = "openGreetingBox()"> Add Greetings</button>
     <div *ngIf = "showNewGreeting">
         <h2>🎉 Festival Greeting Management</h2>
 

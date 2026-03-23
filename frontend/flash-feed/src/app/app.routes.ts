@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
 import { Home } from './home/home';
-import { Submit } from './submit/submit';
 import { Settings } from './settings/settings';
-import { NewsVideos } from './news-videos/news-videos';
 import { Stories } from './stories/stories';
 import { Preferences } from './preferences/preferences';
 import { Jobs } from './jobs/jobs';
@@ -24,8 +22,6 @@ export const routes: Routes = [
     ]
   },
     {path : 'home', component : Home},
-    {path : 'news-videos', component : NewsVideos},
-    {path : 'submit', component: Submit},
     {path : 'settings', component: Settings},
     {path : 'preferences', component: Preferences},
 ];

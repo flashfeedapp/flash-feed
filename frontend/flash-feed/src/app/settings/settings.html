@@ -8,7 +8,7 @@
     <ul class="country-list" *ngIf="showCountries">
         <li *ngFor="let country of countries" class="country-item">
             <label class="switch">
-                <input type="checkbox" [checked]="country.enabled" (click)="toggleCountry(country)">
+                <input type="checkbox" [(ngModel)]="country.enabled" (change)="toggleCountry(country)">
                 <span class="slider"></span>
             </label>
 
@@ -24,7 +24,7 @@
     <ul class="state-list" *ngIf="showStates">
         <li *ngFor="let state of states" class="state-item">
             <label class="switch">
-                <input type="checkbox" [checked]="state.enabled" (click)="toggleState(state)">
+                <input type="checkbox" [(ngModel)]="state.enabled" (change)="toggleState(state)">
                 <span class="slider"></span>
             </label>
             <span class="state-name">{{ state.name }}</span>
@@ -39,7 +39,7 @@
     <ul class="language-list" *ngIf="showLanguages">
         <li *ngFor="let lang of selectedLanguages" class="lang-item">
             <label class="switch">
-                <input type="checkbox" [checked]="lang.enabled" (click)="toggleLanguage(lang)">
+                <input type="checkbox" [(ngModel)]="lang.enabled" (change)="toggleLanguage(lang)">
                 <span class="slider"></span>
             </label>
 

@@ -23,10 +23,12 @@ export class Greeting {
   successMessage = '';
   errorMessage = '';
   showNewGreeting = false;
+  isAdmin = false;
 
   constructor(private greetingService: GreetingService) {}
 
   ngOnInit(): void {
+    this.isAdmin = localStorage.getItem('userRole') == 'Admin';
     this.loadGreeting();
   }
 

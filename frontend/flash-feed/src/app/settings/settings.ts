@@ -14,12 +14,12 @@ import { PreferenceService } from '../services/preference.service';
 export class Settings {
 
   languages = [
-    { name: 'te', enabled: false },
-    { name: 'hi', enabled: false },
-    { name: 'ta', enabled: false },
-    { name: 'kn', enabled: false },
-    { name: 'mr', enabled: false },
-    { name: 'en', enabled: false }
+    { code: 'te', name: 'telugu', enabled: false },
+    { code: 'hi', name: 'hindi', enabled: false },
+    { code: 'ta', name: 'tamil', enabled: false },
+    { code: 'kn', name: 'Kannada', enabled: false },
+    { code: 'mr', name: 'marathi', enabled: false },
+    { code: 'en', name: 'english', enabled: false }
   ];
 
   selectedLanguages: any[] = [];
@@ -57,26 +57,47 @@ export class Settings {
   }
 
   loadUserDetails() {
-  this.newsService.getUserDetails().subscribe(user => {
+    if (this.preferenceService.isMobile()) {
+      this.newsService.getUserDetails().subscribe(user => {
 
-    this.states.forEach(s => s.enabled = false);
+        this.states.forEach(s => s.enabled = false);
 
-    const stateMatched = this.states.find(s => s.name === user.state);
-    if (stateMatched) {
-      stateMatched.enabled = true;
+        const stateMatched = this.states.find(s => s.name === user.state);
+        if (stateMatched) {
+          stateMatched.enabled = true;
 
-      // Filter languages for this state
-      const allowedLangs = this.stateLanguageMap[user.state] || [];
+          // Filter languages for this state
+          const allowedLangs = this.stateLanguageMap[user.state] || [];
+
+          this.selectedLanguages = this.languages
+            .filter(lang => allowedLangs.includes(lang.code))
+            .map(lang => ({
+              ...lang,
+              enabled: lang.code === user.language
+            }));
+        }
+      });
+    } else {
+      const country = this.preferenceService.getCountry();
+      const state = this.preferenceService.getState();
+      const language = this.preferenceService.getLanguage();
+
+      this.countries.forEach(c => c.enabled = c.name === country);
+
+      // ✅ STATE
+      this.states.forEach(s => s.enabled = s.name === state);
+
+      // ✅ FILTER LANGUAGES BASED ON STATE
+      const allowed = this.stateLanguageMap[state || ''] || [];
 
       this.selectedLanguages = this.languages
-        .filter(lang => allowedLangs.includes(lang.name))
-        .map(lang => ({
-          ...lang,
-          enabled: lang.name === user.language
+        .filter(l => allowed.includes(l.code))
+        .map(l => ({
+          ...l,
+          enabled: l.code === language
         }));
     }
-  });
-}
+  }
 
   toggleLanguage(lang: any) {
     // UI update
@@ -85,7 +106,7 @@ export class Settings {
 
     // DB update (PASS STRING ONLY)
     //this.newsService.updateUserDetails(lang.name,'','').subscribe();
-    const result = this.preferenceService.saveLanguage(lang.name);
+    const result = this.preferenceService.saveLanguage(lang.code);
 
     if (result) {
       result.subscribe();
@@ -113,8 +134,8 @@ export class Settings {
 
     const allowedLanguages = this.stateLanguageMap[state.name] || [];
 
-    this.selectedLanguages = this.languages.filter(lang => allowedLanguages.includes(lang.name))
-    .map(lang => ({ ...lang, enabled: false }));
+    this.selectedLanguages = this.languages.filter(lang => allowedLanguages.includes(lang.code))
+      .map(lang => ({ ...lang, enabled: false }));
 
     // DB update (PASS STRING ONLY)
     //this.newsService.updateUserDetails('','',state.name).subscribe();

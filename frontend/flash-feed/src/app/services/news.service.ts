@@ -82,10 +82,8 @@ export class NewsService {
 
         if (Capacitor.isNativePlatform()) {
 
-            const deviceId = localStorage.getItem('deviceId');
-
-            if (deviceId) {
-                url += `?deviceId=${deviceId}`;
+            if (this.deviceId) {
+                url += `?deviceId=${this.deviceId}`;
             }
 
         } else {
@@ -99,21 +97,19 @@ export class NewsService {
             if (state) params.push(`state=${state}`);
             if (language) params.push(`language=${language}`);
             if (country) params.push(`country=${country}`);
-            this.deviceId = '';
 
             if (params.length > 0) {
                 url += `?${params.join('&')}`;
             }
         }
 
-        return this.httpClient.get<any>(url, {
-            params: {
-                deviceId: this.deviceId
-            }
-        }).pipe(
+        // 🔥 ADD THIS
+        console.log('🚀 FINAL API URL:', url);
+        console.log('📱 Device ID:', this.deviceId);
+
+        return this.httpClient.get<any>(url).pipe(
             map(response => {
                 const articles = response || [];
-
                 return articles.map((article: any): NewsItem => ({
                     id: article.id,
                     title: article.title,

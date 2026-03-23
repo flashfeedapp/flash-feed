@@ -1,61 +1,76 @@
-<div class="section-header" (click)="toggle('govt')">
-  <span class="section-title">
-    <span class="arrow">{{ showGovt ? '▼' : '▶' }}</span>
-    🏛 Government Jobs
-  </span>
-</div>
+<div class="jobs-container">
 
-<div *ngIf="showGovt">
-  <div class="job-item" *ngFor="let job of govtJobs" (click)="openJob(job.applyLink)">
-    <div class="job-text">
-      <div class="job-title">{{ job.title }}</div>
-      <div class="job-summary">Qualification: {{ job.qualification }}</div>
-      <div class="job-summary">Last Date: {{ job.lastDate }}</div>
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab" [class.active]="selectedTab === 'govt'" (click)="selectTab('govt')">
+      🏛 Govt
     </div>
-    <div class="job-arrow">›</div>
-  </div>
-</div>
 
-
-<div class="section-header" (click)="toggle('private')">
-  <span class="section-title">
-    <span class="arrow">{{ showPrivate ? '▼' : '▶' }}</span>
-    💼 Private Jobs
-  </span>
-</div>
-
-<div *ngIf="showPrivate">
-  <div class="job-item" *ngFor="let job of privateJobs" (click)="openJob(job.applyLink)">
-    <div class="job-text">
-      <div class="job-title">{{ job.title }}</div>
-      <div class="job-summary">Qualification: {{ job.qualification }}</div>
-      <div class="job-summary">Last Date: {{ job.lastDate }}</div>
+    <div class="tab" [class.active]="selectedTab === 'private'" (click)="selectTab('private')">
+      💼 Private
     </div>
-    <div class="job-arrow">›</div>
+
+    <div class="tab" [class.active]="selectedTab === 'news'" (click)="selectTab('news')">
+      📰 News
+    </div>
   </div>
-</div>
+
+  <div class="jobs-body">
+
+    <!-- Govt Jobs -->
+    <ng-container *ngIf="selectedTab === 'govt'">
+      <div class="job-card" *ngFor="let job of govtJobs" (click)="openJob(job.applyLink)">
+
+        <div class="job-title">{{ job.title }}</div>
+
+        <div class="job-info">
+          🎓 {{ job.qualification }}
+        </div>
+
+        <div class="job-info">
+          ⏰ Last Date: {{ job.lastDate }}
+        </div>
+
+      </div>
+    </ng-container>
 
 
-<div class="section-header" (click)="toggle('news')">
-  <span class="section-title">
-    <span class="arrow">{{ showNews ? '▼' : '▶' }}</span>
-    📰 Job News
-  </span>
-</div>
+    <!-- Private Jobs -->
+    <ng-container *ngIf="selectedTab === 'private'">
+      <div class="job-card" *ngFor="let job of privateJobs" (click)="openJob(job.applyLink)">
 
-<div *ngIf="showNews">
-  <!-- News card -->
-  <div class="news-card" (click)="openJob(news.applyLink)" *ngFor="let news of jobNews; let i = index">
-    <img [src]="news.imageUrl" alt="{{news.title}}" class="news-image">
-    <div class="news-body">
-      <div class="news-title">{{news.title}}</div>
-      <div class="news-summary">{{news.summary}}</div>
-      <div class="card-actions">
-        <div class="left-info">
-          <span class="news-source">{{news.source}}</span>
-          <span class="dot">.</span>
+        <div class="job-title">{{ job.title }}</div>
+
+        <div class="job-info">
+          🎓 {{ job.qualification }}
+        </div>
+
+        <div class="job-info">
+          ⏰ Last Date: {{ job.lastDate }}
+        </div>
+
+      </div>
+    </ng-container>
+
+
+    <!-- Job News -->
+    <ng-container *ngIf="selectedTab === 'news'">
+      <div class="news-card" *ngFor="let news of jobNews" (click)="openJob(news.applyLink)">
+
+        <img [src]="news.imageUrl" class="news-image">
+
+        <div class="news-body">
+          <div class="news-title">{{ news.title }}</div>
+          <div class="news-summary">{{ news.summary }}</div>
         </div>
       </div>
+    </ng-container>
+
+    <!-- Empty -->
+    <div *ngIf="getCurrentList().length === 0" class="empty-state">
+      No jobs available
     </div>
+
   </div>
+
 </div>
