@@ -41,6 +41,9 @@ public class DailyNewsCache {
     @Column(columnDefinition = "TEXT")
     private String country;
 
+    @Column
+    private Boolean isLatest;
+
     @Column(name = "published_at")
     private LocalDateTime publishedAt;
 

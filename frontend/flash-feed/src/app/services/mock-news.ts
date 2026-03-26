@@ -13,7 +13,8 @@ export const SAMPLE_NEWS : NewsItem[] = [
         category: '',
         language: '',
         state: "",
-        country: ""
+        country: "",
+        isLatest: false
     },
     {
         id: 2,
@@ -27,7 +28,8 @@ export const SAMPLE_NEWS : NewsItem[] = [
         category: '',
         language: '',
         state: "",
-        country: ""
+        country: "",
+        isLatest: false
     },
     {
         id: 3,
@@ -41,7 +43,8 @@ export const SAMPLE_NEWS : NewsItem[] = [
         category: '',
         language: '',
         state: "",
-        country: ""
+        country: "",
+        isLatest: false
     },
     {
         id: 4,
@@ -55,6 +58,7 @@ export const SAMPLE_NEWS : NewsItem[] = [
         category: '',
         language: '',
         state: "",
-        country: ""
+        country: "",
+        isLatest: false
     }
 ];

@@ -35,7 +35,7 @@ export class News {
   newsList: NewsItem[] = [];
 
   showAddNews: boolean = false;
-  isAdmin = false;
+  isAdmin = true;
 
   newNews: any = {
     id: '',
@@ -48,7 +48,8 @@ export class News {
     category: '',
     language: '',
     state: '',
-    country: ''
+    country: '',
+    isLatest: false
   };
 
   private allNews: { [key: string]: NewsItem[] } = {};
@@ -200,7 +201,8 @@ export class News {
       category: this.selectedTab,
       language: this.newNews.language,
       state: this.newNews.state,
-      country: this.newNews.country
+      country: this.newNews.country,
+      isLatest: this.newNews.isLatest
     }
 
     this.newsService.addNews(newsItem).subscribe({
@@ -225,7 +227,8 @@ export class News {
           category: '',
           language: '',
           state: '',
-          country: ''
+          country: '',
+          isLatest: false
         };
 
         this.showAddNews = false;

@@ -45,6 +45,7 @@ public class DailyNewsCacheMapper {
         entity.setLanguage(dto.getLanguage());
         entity.setState(dto.getState());
         entity.setCountry(dto.getCountry());
+        entity.setIsLatest(dto.getIsLatest());
         entity.setPublishedAt(dto.getPublishedAt());
         entity.setCreatedAt(dto.getCreatedAt());
 

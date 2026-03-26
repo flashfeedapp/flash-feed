@@ -40,6 +40,7 @@ export class App {
         this.userService.registerDevice(deviceId).subscribe({
           next: (user: any) => {
 
+            localStorage.setItem('userRole', user.role);
             if (!user.state || !user.language || !user.country) {
               this.redirectToPreferences();
             } else {
@@ -55,6 +56,7 @@ export class App {
         const state = localStorage.getItem('state');
         const language = localStorage.getItem('language');
         const country = localStorage.getItem('country');
+        //localStorage.setItem('userRole', "Admin");
 
         if (!state || !language || !country) {
           this.redirectToPreferences();

@@ -46,8 +46,32 @@
         </div>
         <ng-container *ngFor="let news of newsList; let i = index">
 
-            <!-- News card -->
-            <div class="news-card" (click)="openArticle(news.link)">
+            <!-- ✅ LATEST NEWS (NO IMAGE) -->
+            <div *ngIf="news.isLatest" class="latest-card" (click)="openArticle(news.link)">
+
+                <div class="latest-header">
+                    <span class="live-dot"></span>
+                    <span class="latest-label">Latest</span>
+                </div>
+
+                <div class="latest-title">
+                    {{ news.title }}
+                </div>
+
+                <div class="latest-summary">
+                    {{ truncate(news.summary, 120) }}
+                </div>
+
+                <div class="latest-footer">
+                    <span>{{news.source}}</span>
+                    <span class="dot">•</span>
+                    <span>{{formatDate(news.time)}}</span>
+
+                    <button class="share-btn" (click)="shareContent(news, $event)">🔗</button>
+                </div>
+            </div>
+            <!-- Normal News -->
+            <div *ngIf="!news.isLatest" class="news-card" (click)="openArticle(news.link)">
                 <img [src]="news.imageUrl" alt="{{news.title}}" class="news-image">
                 <div class="news-body">
                     <div class="news-title">{{news.title}}</div>
@@ -106,6 +130,10 @@
             <input [(ngModel)]="newNews.language" placeholder="Language">
             <input [(ngModel)]="newNews.state" placeholder="State">
             <input [(ngModel)]="newNews.country" placeholder="Country">
+            <label class="latest-toggle">
+                <input type="checkbox" [(ngModel)]="newNews.isLatest">
+                Mark as Latest News
+            </label>
             <textarea [(ngModel)]="newNews.summary" placeholder="Short Summary"></textarea>
 
             <div class="actions">

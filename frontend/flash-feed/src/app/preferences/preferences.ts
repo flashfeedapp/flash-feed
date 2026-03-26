@@ -94,6 +94,7 @@ export class Preferences {
 
       const state = localStorage.getItem('state');
       const language = localStorage.getItem('language');
+      //localStorage.setItem('userRole', "Admin");
 
       if (state) {
 

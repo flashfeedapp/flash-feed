@@ -276,3 +276,80 @@
 .share-btn:active {
   transform: scale(0.95);
 }
+
+/* ===== Latest News Card ===== */
+
+.latest-card {
+    background: #1e293b;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 16px;
+    margin-top: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.latest-card:hover {
+    background: rgba(255,255,255,0.04);
+    transform: translateY(-2px);
+}
+
+/* header */
+.latest-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.live-dot {
+    width: 6px;
+    height: 6px;
+    background: #ff5252;
+    border-radius: 50%;
+}
+
+.latest-label {
+    font-size: 11px;
+    color: #ff5252;
+    font-weight: 600;
+}
+
+/* title */
+.latest-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.4;
+}
+
+/* summary */
+.latest-summary {
+    font-size: 13px;
+    color: #9ca3af;
+    margin-top: 6px;
+    line-height: 1.5;
+}
+
+/* footer */
+.latest-footer {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #9aa0a6;
+    margin-top: 10px;
+}
+
+/* share button adjust */
+.latest-footer .share-btn {
+    margin-left: auto;
+}
+
+.latest-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #ffffff;
+}

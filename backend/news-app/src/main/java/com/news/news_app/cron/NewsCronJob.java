@@ -27,7 +27,7 @@ public class NewsCronJob {
     @Autowired
     private LlamaStoryService llamaStoryService;
 
-    @Scheduled(cron = "0 49 06 * * *")
+    @Scheduled(cron = "0 27 23 * * *")
     @Transactional
     public void fetchAndStoreNews() {
 
@@ -289,6 +289,7 @@ public class NewsCronJob {
             e.setLanguage(language);
             e.setState(state);
             e.setCountry(country);
+            e.setIsLatest(false);
             String pubDate = (String) item.get("pubDate");
 
             DateTimeFormatter formatter =

@@ -11,4 +11,5 @@ export interface NewsItem {
     language: string,
     state: string,
     country: string
+    isLatest: boolean
 }

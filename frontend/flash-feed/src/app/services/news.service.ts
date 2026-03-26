@@ -42,7 +42,8 @@ export class NewsService {
                     category: "",
                     language: "",
                     state: "",
-                    country: ""
+                    country: "",
+                    isLatest: false
                 }));
             })
         );
@@ -97,6 +98,7 @@ export class NewsService {
             if (state) params.push(`state=${state}`);
             if (language) params.push(`language=${language}`);
             if (country) params.push(`country=${country}`);
+            params.push(`deviceId=`)
 
             if (params.length > 0) {
                 url += `?${params.join('&')}`;
@@ -122,7 +124,8 @@ export class NewsService {
                     category: article.category || '',
                     language: article.language || '',
                     state: article.state || '',
-                    country: article.country || ''
+                    country: article.country || '',
+                    isLatest: article.isLatest
                 }));
             })
         );
@@ -229,10 +232,10 @@ export class NewsService {
     //     );*/
     // }
 
-    getLatestNewsvideos(): Observable<any> {
-        const videoUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCumtYpCY26F6Jr3satUgMvA&order=date&maxResults=20&type=video&key=AIzaSyDPjEzGzGwcxBOjyVknX73BjWYmEKQn5uU"
-        return this.httpClient.get<any>(videoUrl);
-    }
+    // getLatestNewsvideos(): Observable<any> {
+    //     const videoUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCumtYpCY26F6Jr3satUgMvA&order=date&maxResults=20&type=video&key=AIzaSyDPjEzGzGwcxBOjyVknX73BjWYmEKQn5uU"
+    //     return this.httpClient.get<any>(videoUrl);
+    // }
 
 
     // getNationalNews(): Observable<NewsItem[]> {
@@ -504,8 +507,8 @@ export class NewsService {
     }
 
     addNews(newsItem: NewsItem) {
-        console.log(newsItem);
-        return this.httpClient.post<NewsItem>(this.apiUrl, newsItem, { headers: { 'Content-Type': 'application/json' } });
+        let addNewsUrl = `${this.apiUrl}/api/v1/news`;
+        return this.httpClient.post<NewsItem>(addNewsUrl, newsItem, { headers: { 'Content-Type': 'application/json' } });
     }
 
     getUserDetails() {

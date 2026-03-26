@@ -30,6 +30,8 @@ public class DailyNewsCacheDto {
 
     private String country;
 
+    private Boolean isLatest;
+
     @JsonProperty("time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime publishedAt;
