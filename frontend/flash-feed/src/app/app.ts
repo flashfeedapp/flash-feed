@@ -36,6 +36,7 @@ export class App {
         const deviceId = await this.deviceService.getDeviceId();
 
         this.newsService.setDeviceId(deviceId);
+        localStorage.setItem('deviceId', deviceId);
 
         this.userService.registerDevice(deviceId).subscribe({
           next: (user: any) => {

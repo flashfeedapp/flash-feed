@@ -62,6 +62,10 @@ export class Settings {
 
         this.states.forEach(s => s.enabled = false);
 
+        const countryMatched = this.countries.find(c => c.name === user.country);
+        if (countryMatched) {
+          countryMatched.enabled = true;
+        }
         const stateMatched = this.states.find(s => s.name === user.state);
         if (stateMatched) {
           stateMatched.enabled = true;

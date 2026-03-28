@@ -14,7 +14,7 @@ export class PreferenceService {
   constructor(
     private http: HttpClient,
     private deviceService: DeviceService
-  ) {}
+  ) { }
 
   isMobile(): boolean {
     return Capacitor.isNativePlatform();
@@ -24,10 +24,13 @@ export class PreferenceService {
 
     if (this.isMobile()) {
 
-      const deviceId = this.deviceService.getStoredDeviceId();
+      //const deviceId = this.deviceService.getStoredDeviceId();
 
-      return this.http.put(`${this.apiUrl}/api/v1/user/country`, {
-        deviceId: deviceId,
+      const deviceId = localStorage.getItem('deviceId');
+
+      const url = `${this.apiUrl}/api/v1/users/` + deviceId;
+      console.log("preferenceService url" + url);
+      return this.http.put(url, {
         country: country
       });
 
@@ -42,10 +45,11 @@ export class PreferenceService {
 
     if (this.isMobile()) {
 
-      const deviceId = this.deviceService.getStoredDeviceId();
-
-      return this.http.put(`${this.apiUrl}/api/v1/user/state`, {
-        deviceId: deviceId,
+      //const deviceId = this.deviceService.getStoredDeviceId();
+      const deviceId = localStorage.getItem('deviceId');
+      const url = `${this.apiUrl}/api/v1/users/` + deviceId;
+      console.log("preferenceService url" + url);
+      return this.http.put(url, {
         state: state
       });
 
@@ -60,10 +64,11 @@ export class PreferenceService {
 
     if (this.isMobile()) {
 
-      const deviceId = this.deviceService.getStoredDeviceId();
-
-      return this.http.put(`${this.apiUrl}/api/v1/user/language`, {
-        deviceId: deviceId,
+      //const deviceId = this.deviceService.getStoredDeviceId();
+      const deviceId = localStorage.getItem('deviceId');
+      const url = `${this.apiUrl}/api/v1/users/` + deviceId;
+      console.log("preferenceService url" + url);
+      return this.http.put(url, {
         language: language
       });
 

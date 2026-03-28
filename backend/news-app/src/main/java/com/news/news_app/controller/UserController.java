@@ -18,7 +18,7 @@ public class UserController {
     }
 
     @PutMapping("/{deviceId}")
-    public Users updateUserDetails(@PathVariable String deviceId, @RequestParam String language, @RequestParam String country, @RequestParam String state) throws Exception {
+    public Users updateUserDetails(@PathVariable String deviceId, @RequestParam(required = false) String language, @RequestParam(required = false) String country, @RequestParam(required = false) String state) throws Exception {
         return userService.updateUserDetails(deviceId, language, country, state);
     }
 
