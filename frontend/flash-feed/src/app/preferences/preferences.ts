@@ -57,11 +57,13 @@ export class Preferences {
     'Karnataka': ['kn', 'en']
   };
 
-  showLanguages = false;
+  showLanguages = true;
   showCountries = true;
   showStates = true;
 
   ngOnInit() {
+    this.toggleCountry(this.countries[0]);
+
     this.loadUserDetails();
   }
 
@@ -118,16 +120,19 @@ export class Preferences {
   }
 
   toggleLanguage(lang: any) {
-    // UI update
-    this.selectedLanguages.forEach(l => l.enabled = false);
-    lang.enabled = true;
 
-    // DB update (PASS STRING ONLY)
-    const result = this.preferenceService.saveLanguage(lang.code);
+    // toggle ON/OFF properly
+    lang.enabled = !lang.enabled;
 
-    if (result) {
-      result.subscribe();
+    // if turned ON → make others OFF (single select)
+    if (lang.enabled) {
+      this.selectedLanguages.forEach(l => {
+        if (l !== lang) l.enabled = false;
+      });
     }
+
+    const result = this.preferenceService.saveLanguage(lang.code);
+    if (result) result.subscribe();
   }
 
   toggleCountry(country: any) {
@@ -144,24 +149,45 @@ export class Preferences {
   }
 
   toggleState(state: any) {
-    // UI update
     this.states.forEach(l => l.enabled = false);
     state.enabled = true;
 
+    this.showLanguages = true; // 🔥 auto open
+
     const allowedLanguages = this.stateLanguageMap[state.name] || [];
 
-    this.selectedLanguages = this.languages.filter(lang => allowedLanguages.includes(lang.code))
+    this.selectedLanguages = this.languages
+      .filter(lang => allowedLanguages.includes(lang.code))
       .map(lang => ({ ...lang, enabled: false }));
 
-    // DB update (PASS STRING ONLY)
     const result = this.preferenceService.saveState(state.name);
+    if (result) result.subscribe();
+  }
 
-    if (result) {
-      result.subscribe();
-    }
+  isFormValid(): boolean {
+    const countrySelected = this.countries.some(c => c.enabled);
+    const stateSelected = this.states.some(s => s.enabled);
+    const languageSelected = this.selectedLanguages.some(l => l.enabled);
+
+    return countrySelected && stateSelected && languageSelected;
+  }
+
+
+  getHintText(): string {
+    const stateSelected = this.states.some(s => s.enabled);
+    const languageSelected = this.selectedLanguages.some(l => l.enabled);
+
+    if (!stateSelected) return 'Select your state to personalize news';
+    if (!languageSelected) return 'Choose your language for better experience';
+
+    return 'You are all set ✨';
   }
 
   redirectToHome() {
+
+    if (!this.states.find(s => s.enabled) ||
+      !this.selectedLanguages.find(l => l.enabled)) return;
+
     this.router.navigate(['/home'])
   }
 }

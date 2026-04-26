@@ -57,7 +57,6 @@ export class App {
         const state = localStorage.getItem('state');
         const language = localStorage.getItem('language');
         const country = localStorage.getItem('country');
-        //localStorage.setItem('userRole', "Admin");
 
         if (!state || !language || !country) {
           this.redirectToPreferences();
@@ -69,6 +68,14 @@ export class App {
 
     }, 1800);
 
+  }
+
+  isPreferencesCompleted(): boolean {
+    const state = localStorage.getItem('state');
+    const language = localStorage.getItem('language');
+    const country = localStorage.getItem('country');
+
+    return !!(state && language && country);
   }
 
   toggleTheme() {

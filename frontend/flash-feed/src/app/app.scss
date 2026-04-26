@@ -317,3 +317,8 @@
 .fab-menu button:hover {
   background: #2a2f44;
 }
+
+.nav-item.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}

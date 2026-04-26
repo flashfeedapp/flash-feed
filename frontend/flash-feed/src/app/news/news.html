@@ -8,9 +8,6 @@
             <div class="tab" [class.active]="selectedTab === 'World'" (click)="selectTab('World')">
                 International</div>
 
-            <!-- Extra tabs shown conditionally -->
-            <!--div class="tab" *ngIf=showMoreTabs [class.active]="selectedTab === 'Jobs'" (click)="selectTab('Jobs')">
-                Jobs</div-->
             <div class="tab" *ngIf=showMoreTabs [class.active]="selectedTab === 'Business'"
                 (click)="selectTab('Business')">
                 Business</div>
@@ -32,12 +29,9 @@
 
     <!-- Top Banner Add-->
     <div class="ad-container">
-        <!-- <ins class="adsbygoogle" style="display:block; min-height: 90px" data-ad-client="ca-pub-3940256099942544"
-            data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true">
-        </ins> -->
-        <div style="height:90px;background:#2a2f44;text-align:center;line-height:90px;color: darkgray;">
+        <!-- <div style="height:90px;background:#2a2f44;text-align:center;line-height:90px;color: darkgray;">
             AD WILL APPEAR HERE
-        </div>
+        </div> -->
     </div>
 
     <div class="news-list">
@@ -93,30 +87,22 @@
             </div>
 
             <!-- AD after every 5 news cards  -->
-            <div *ngIf="i > 0 && i % 3 === 0" class="inline-ad">
-                <!-- TO uncomment when receving ads-->
-                <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3940256099942544"
-                    data-ad-slot="6300978111" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
-                <div style="height:90px;background:#2a2f44;text-align:center;line-height:90px;color: darkgray;">
+            <!--div *ngIf="i > 0 && i % 3 === 0" class="inline-ad">
+                <!--div style="height:90px;background:#2a2f44;text-align:center;line-height:90px;color: darkgray;">
                     AD WILL APPEAR HERE
                 </div>
-            </div>
+            </div-->
 
 
         </ng-container>
 
-        <div *ngIf="newsList?.length === 0" class="no-data">
-            No news available for {{selectedTab}}
+        <div *ngIf="isLoading" class="loading">
+            📰 Fetching latest updates...
         </div>
-    </div>
 
-    <div class="bottom-ad">
-        <!-- TO uncomment when receving ads-->
-        <!-- <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3940256099942544"
-            data-ad-slot="6300978111" data-ad-format="auto"></ins> -->
-        <div style="height:90px;background:#2a2f44;text-align:center;line-height:90px;color: darkgray;">
-            AD WILL APPEAR HERE
-        </div>
+        <!--div *ngIf="!isLoading && newsList?.length === 0" class="no-data">
+            No news available for {{selectedTab}}
+        </div-->
     </div>
 
     <div class="add-news-modal" *ngIf="showAddNews">

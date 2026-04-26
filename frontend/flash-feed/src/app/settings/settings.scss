@@ -110,3 +110,55 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(18px);
 }
+
+/* =========================
+   App Info Section
+========================= */
+
+.app-info-section {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.info-card:hover {
+  background: rgba(255, 255, 255, 0.14);
+  transform: translateY(-1px);
+}
+
+.info-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.arrow {
+  font-size: 18px;
+  opacity: 0.6;
+}

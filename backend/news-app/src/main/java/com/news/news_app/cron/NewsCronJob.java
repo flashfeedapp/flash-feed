@@ -27,7 +27,7 @@ public class NewsCronJob {
     @Autowired
     private LlamaStoryService llamaStoryService;
 
-    @Scheduled(cron = "0 27 07 * * *")
+    @Scheduled(cron = "0 00 05 * * *")
     @Transactional
     public void fetchAndStoreNews() {
 

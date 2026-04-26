@@ -185,6 +185,15 @@ button:hover {
   background-color: #1e40af;
 }
 
+.selection-hint {
+  opacity: 0.8;
+}
+
+button:not(:disabled) + .selection-hint {
+  opacity: 1;
+  font-weight: 500;
+}
+
 /* Desktop Enhancement */
 @media (min-width: 768px) {
   .card {

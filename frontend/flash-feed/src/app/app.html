@@ -1,14 +1,13 @@
 <!-- SPLASH SCREEN -->
 <div *ngIf="showSplash" class="splash-screen">
 
-  <img [src]="'/images/bird5.png'" class="splash-logo">
+  <img [src]="'/images/bird7.png'" class="splash-logo">
 
 </div>
 
 <div *ngIf="!showSplash" [class.dark]="showDarkMode" class="global-container">
   <header class="header">
-    <div class="title">News Bird</div>
-    <!--button class="toggle-theme" (click)="toggleTheme()">Toggle</button-->
+    <div class="title">News Birdy</div>
   </header>
 
   <!-- 🔵 PAGE CONTENT GOES HERE -->
@@ -17,7 +16,7 @@
   </main>
 
 
-  <div class="bottom-nav">
+  <div class="bottom-nav" *ngIf="isPreferencesCompleted()">
 
     <div class="fab-container">
 
@@ -31,28 +30,28 @@
       </div>
     </div>
 
-    <button class="nav-item" routerLink="/news" routerLinkActive="active">
+    <button class="nav-item" [class.disabled]="!isPreferencesCompleted()" routerLink="/news" routerLinkActive="active">
 
       <span class="icon">📰</span>
       <span class="label">News</span>
 
     </button>
 
-    <button class="nav-item" routerLink="/jobs" routerLinkActive="active">
+    <button class="nav-item" [class.disabled]="!isPreferencesCompleted()" routerLink="/jobs" routerLinkActive="active">
 
       <span class="icon">💼</span>
       <span class="label">Jobs</span>
 
     </button>
 
-    <button class="nav-item" routerLink="/facts" routerLinkActive="active">
+    <button class="nav-item" [class.disabled]="!isPreferencesCompleted()" routerLink="/facts" routerLinkActive="active">
 
       <span class="icon">💡</span>
       <span class="label">Facts</span>
 
     </button>
 
-    <button class="nav-item" routerLink="/stories" routerLinkActive="active">
+    <button class="nav-item" [class.disabled]="!isPreferencesCompleted()" routerLink="/stories" routerLinkActive="active">
 
       <span class="icon">📚</span>
       <span class="label">Stories</span>

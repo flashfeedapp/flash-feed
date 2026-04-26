@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { LanguageService } from '../services/language.service';
 import { NewsService } from '../services/news.service';
 import { PreferenceService } from '../services/preference.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -50,7 +51,7 @@ export class Settings {
   showCountries = true;
   showStates = true;
 
-  constructor(private languageService: LanguageService, private newsService: NewsService, private preferenceService: PreferenceService) { }
+  constructor(private languageService: LanguageService, private newsService: NewsService, private preferenceService: PreferenceService, private router: Router) { }
 
   ngOnInit() {
     this.loadUserDetails();
@@ -108,12 +109,13 @@ export class Settings {
     this.selectedLanguages.forEach(l => l.enabled = false);
     lang.enabled = true;
 
-    // DB update (PASS STRING ONLY)
-    //this.newsService.updateUserDetails(lang.name,'','').subscribe();
     const result = this.preferenceService.saveLanguage(lang.code);
 
     if (result) {
-      result.subscribe();
+      result.subscribe({
+        next: (res) => console.log('Language saved', res),
+        error: (err) => console.error('Error saving language', err)
+      });
     }
   }
 
@@ -122,12 +124,13 @@ export class Settings {
     this.countries.forEach(l => l.enabled = false);
     country.enabled = true;
 
-    // DB update (PASS STRING ONLY)
-    //this.newsService.updateUserDetails('',country.name,'').subscribe();
     const result = this.preferenceService.saveCountry(country.name);
 
     if (result) {
-      result.subscribe();
+      result.subscribe({
+        next: (res) => console.log('Country saved', res),
+        error: (err) => console.error('Error saving Country', err)
+      });
     }
   }
 
@@ -141,12 +144,17 @@ export class Settings {
     this.selectedLanguages = this.languages.filter(lang => allowedLanguages.includes(lang.code))
       .map(lang => ({ ...lang, enabled: false }));
 
-    // DB update (PASS STRING ONLY)
-    //this.newsService.updateUserDetails('','',state.name).subscribe();
     const result = this.preferenceService.saveState(state.name);
 
     if (result) {
-      result.subscribe();
+      result.subscribe({
+        next: (res) => console.log('State saved', res),
+        error: (err) => console.error('Error saving State', err)
+      });
     }
+  }
+
+  openPrivacy() {
+    this.router.navigate(['/privacy']);
   }
 }

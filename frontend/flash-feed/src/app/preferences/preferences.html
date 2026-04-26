@@ -2,7 +2,7 @@
 
     <div class="card">
 
-        <div class="bird"><img [src]="'/images/bird5.png'" alt="Company Logo" class="logo"></div>
+        <div class="bird"><img [src]="'/images/bird7.png'" alt="Company Logo" class="logo"></div>
         <!--h2>NewsBird Welcomes You</h2-->
 
         <br>
@@ -57,8 +57,14 @@
             </li>
         </ul>
 
+        <div class="selection-hint">
+            {{ getHintText() }}
+        </div>
+
         <div class="btn-container">
-            <button (click) = "redirectToHome()">Submit</button>
+            <button [disabled]="!isFormValid()" (click)="redirectToHome()">
+                Continue
+            </button>
         </div>
 
     </div>

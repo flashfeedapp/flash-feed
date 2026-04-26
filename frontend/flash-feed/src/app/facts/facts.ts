@@ -11,21 +11,58 @@ import { CommonModule } from '@angular/common';
 })
 export class Facts {
 
-  facts:Fact[] = [];
+  facts: Fact[] = [];
 
-  constructor(private factService: FactService){}
+  constructor(private factService: FactService) { }
 
-  ngOnInit():void{
+  ngOnInit(): void {
 
-    this.factService.getFacts().subscribe(data=>{
+    this.factService.getFacts().subscribe(data => {
       this.facts = data;
     });
 
   }
 
-  toggleMore(facts: Fact){
+  toggleMore(facts: Fact) {
 
     facts.expanded = !facts.expanded;
 
+  }
+
+  shareContent(fact: any, event: Event) {
+    event.stopPropagation();
+
+    const text = `${fact.fact}
+    ${fact.shortExplanation}
+
+Read more interesting facts on News Bird 👇
+https://play.google.com/store/apps/details?id=YOUR_APP_ID`;
+
+    // ✅ Native app
+    if (window && (window as any).Capacitor?.isNativePlatform?.()) {
+      import('@capacitor/share').then(({ Share }) => {
+        Share.share({
+          title: 'Flash Feed',
+          text: text
+        });
+      });
+      return;
+    }
+
+    // ✅ Modern mobile browsers (HTTPS only)
+    if (navigator.share) {
+      navigator.share({
+        title: 'Flash Feed',
+        text: text
+      }).catch(() => { });
+    }
+    // ✅ Final fallback (always works)
+    else {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Copied! Share anywhere 👍');
+      }).catch(() => {
+        alert(text); // worst case fallback
+      });
+    }
   }
 }

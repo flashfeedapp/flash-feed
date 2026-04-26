@@ -36,6 +36,7 @@ export class News {
 
   showAddNews: boolean = false;
   isAdmin = true;
+  isLoading : boolean = true;
 
   newNews: any = {
     id: '',
@@ -79,6 +80,7 @@ export class News {
 
   private preloadAllTabs(): void {
 
+    this.isLoading = true;
     const tabs: NewsTab[] = [
       'State',
       'National',
@@ -100,9 +102,11 @@ export class News {
       next: (results) => {
         this.allNews = results;
         this.newsList = this.allNews[this.selectedTab];
-        console.log('✅ All tabs preloaded');
+        this.isLoading = false;
       },
-      error: (err) => console.error('❌ Preload failed', err)
+      error: (err) => {
+        this.isLoading = false;
+        console.error('❌ Preload failed', err)}
     });
   }
 
@@ -135,6 +139,7 @@ export class News {
 
   reloadTab(tab: string): void {
 
+    this.isLoading = true;
     this.newsService.getNewsByCategory(tab).subscribe({
       next: (data) => {
 
@@ -145,10 +150,11 @@ export class News {
         if (this.selectedTab === tab) {
           this.newsList = data;
         }
-
-        console.log(`🔄 ${tab} refreshed`);
+        this.isLoading = false;
       },
-      error: (err) => console.error(`❌ Reload failed for ${tab}`, err)
+      error: (err) => {
+        this.isLoading = false;
+        console.error(`❌ Reload failed for ${tab}`, err)}
     });
   }
 
@@ -168,10 +174,6 @@ export class News {
   }
 
   async openArticle(link: string) {
-    // if (link) {
-    //   window.open(link, '_blank');
-    //   //window.location.href = link;
-    // }
     if (Capacitor.isNativePlatform()) {
       Browser.open({ url: link });
     } else {
@@ -207,12 +209,6 @@ export class News {
 
     this.newsService.addNews(newsItem).subscribe({
       next: (savedNews: NewsItem) => {
-        /*if (!this.allNews[this.selectedTab]) {
-          this.allNews[this.selectedTab] = [];
-        }
-
-        this.allNews[this.selectedTab].unshift(savedNews);
-        this.newsList = this.allNews[this.selectedTab];*/
         this.reloadTab(this.selectedTab);
 
         // clear form

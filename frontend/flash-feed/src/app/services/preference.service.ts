@@ -24,14 +24,14 @@ export class PreferenceService {
 
     if (this.isMobile()) {
 
-      //const deviceId = this.deviceService.getStoredDeviceId();
-
       const deviceId = localStorage.getItem('deviceId');
 
       const url = `${this.apiUrl}/api/v1/users/` + deviceId;
       console.log("preferenceService url" + url);
-      return this.http.put(url, {
-        country: country
+      return this.http.put(url, null, {
+        params: {
+          country: country
+        }
       });
 
     } else {
@@ -49,8 +49,10 @@ export class PreferenceService {
       const deviceId = localStorage.getItem('deviceId');
       const url = `${this.apiUrl}/api/v1/users/` + deviceId;
       console.log("preferenceService url" + url);
-      return this.http.put(url, {
-        state: state
+      return this.http.put(url, null, {
+        params: {
+          state: state
+        }
       });
 
     } else {
@@ -68,8 +70,10 @@ export class PreferenceService {
       const deviceId = localStorage.getItem('deviceId');
       const url = `${this.apiUrl}/api/v1/users/` + deviceId;
       console.log("preferenceService url" + url);
-      return this.http.put(url, {
-        language: language
+      return this.http.put(url, null, {
+        params: {
+          language: language
+        }
       });
 
     } else {

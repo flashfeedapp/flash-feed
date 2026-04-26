@@ -6,6 +6,7 @@ import { Preferences } from './preferences/preferences';
 import { Jobs } from './jobs/jobs';
 import { News } from './news/news';
 import { Facts } from './facts/facts';
+import { Privacy } from './privacy/privacy';
 
 
 export const routes: Routes = [
@@ -24,4 +25,5 @@ export const routes: Routes = [
     {path : 'home', component : Home},
     {path : 'settings', component: Settings},
     {path : 'preferences', component: Preferences},
+    { path: 'privacy', component: Privacy}
 ];

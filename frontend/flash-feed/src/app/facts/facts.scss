@@ -75,3 +75,28 @@
     margin-top: 12px;
 
 }
+
+.share-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  background: transparent;
+  border: none;
+
+  color: #9ca3af;
+  font-size: 13px;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* hover */
+.share-btn:hover {
+  color: #ffffff;
+}
+
+/* click feel */
+.share-btn:active {
+  transform: scale(0.95);
+}
