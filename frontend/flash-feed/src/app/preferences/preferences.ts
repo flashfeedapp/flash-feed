@@ -131,8 +131,8 @@ export class Preferences {
       });
     }
 
-    const result = this.preferenceService.saveLanguage(lang.code);
-    if (result) result.subscribe();
+    //const result = this.preferenceService.saveLanguage(lang.code);
+    //if (result) result.subscribe();
   }
 
   toggleCountry(country: any) {
@@ -141,27 +141,43 @@ export class Preferences {
     country.enabled = true;
 
     // DB update (PASS STRING ONLY)
-    const result = this.preferenceService.saveCountry(country.name);
+    //const result = this.preferenceService.saveCountry(country.name);
 
-    if (result) {
-      result.subscribe();
-    }
+    //if (result) {
+    //  result.subscribe();
+    //}
   }
 
   toggleState(state: any) {
-    this.states.forEach(l => l.enabled = false);
+
+    // If already selected → deselect it
+    if (state.enabled) {
+      state.enabled = false;
+      this.selectedLanguages = [];
+
+      const result = this.preferenceService.saveState('');
+      if (result) result.subscribe();
+
+      return;
+    }
+
+    // Select one state only
+    this.states.forEach(s => s.enabled = false);
     state.enabled = true;
 
-    this.showLanguages = true; // 🔥 auto open
+    this.showLanguages = true;
 
     const allowedLanguages = this.stateLanguageMap[state.name] || [];
 
     this.selectedLanguages = this.languages
       .filter(lang => allowedLanguages.includes(lang.code))
-      .map(lang => ({ ...lang, enabled: false }));
+      .map(lang => ({
+        ...lang,
+        enabled: false
+      }));
 
-    const result = this.preferenceService.saveState(state.name);
-    if (result) result.subscribe();
+    //const result = this.preferenceService.saveState(state.name);
+    //if (result) result.subscribe();
   }
 
   isFormValid(): boolean {
@@ -174,20 +190,50 @@ export class Preferences {
 
 
   getHintText(): string {
+
+    const countrySelected = this.countries.some(c => c.enabled);
+    if (!countrySelected) {
+      return 'Select your country to personalize news';
+    }
+
     const stateSelected = this.states.some(s => s.enabled);
+
+    if (!stateSelected) {
+      return 'Select your state to personalize news';
+    }
+
     const languageSelected = this.selectedLanguages.some(l => l.enabled);
 
-    if (!stateSelected) return 'Select your state to personalize news';
-    if (!languageSelected) return 'Choose your language for better experience';
+    if (!languageSelected) {
+      return 'Choose your language to personalize news';
+    }
 
     return 'You are all set ✨';
   }
 
   redirectToHome() {
 
-    if (!this.states.find(s => s.enabled) ||
-      !this.selectedLanguages.find(l => l.enabled)) return;
+  const selectedCountry = this.countries.find(c => c.enabled)?.name || '';
+  const selectedState = this.states.find(s => s.enabled)?.name || '';
+  const selectedLanguage = this.selectedLanguages.find(l => l.enabled)?.code || '';
 
-    this.router.navigate(['/home'])
+  if (!selectedCountry || !selectedState || !selectedLanguage) {
+    return;
   }
+
+  const data = {
+    country: selectedCountry,
+    state: selectedState,
+    language: selectedLanguage
+  };
+
+  console.log(data);
+  this.preferenceService.saveUserDetails(data).subscribe({
+    next: () => {
+      localStorage.setItem('isPreferenceCompleted', 'Y');
+      this.router.navigate(['/home']);
+    },
+    error: (err) => console.error(err)
+  });
+}
 }

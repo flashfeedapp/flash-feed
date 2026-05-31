@@ -9,9 +9,9 @@ import java.util.List;
 @Repository
 public interface DailyNewsCacheRepository extends JpaRepository<DailyNewsCache, Long> {
 
-    List<DailyNewsCache> findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseAndStateIgnoreCaseAndCountryIgnoreCaseOrderByPublishedAtDesc(String category, String language, String state, String country);
+    List<DailyNewsCache> findTop20ByCategoryIgnoreCaseAndLanguageIgnoreCaseAndStateIgnoreCaseAndCountryIgnoreCaseOrderByPublishedAtDesc(String category, String language, String state, String country);
 
-    List<DailyNewsCache> findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc(String category, String language);
+    List<DailyNewsCache> findTop20ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc(String category, String language);
 
     List<DailyNewsCache> findByCategory(String category);
 

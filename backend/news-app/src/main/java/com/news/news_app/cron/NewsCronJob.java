@@ -27,7 +27,7 @@ public class NewsCronJob {
     @Autowired
     private LlamaStoryService llamaStoryService;
 
-    @Scheduled(cron = "0 00 05 * * *")
+    @Scheduled(cron = "0 30 07 * * *", zone = "Asia/Kolkata")
     @Transactional
     public void fetchAndStoreNews() {
 
@@ -236,7 +236,7 @@ public class NewsCronJob {
         // TamilNadu English Language
 
         saveNews(
-                newsService.fetchStateNewsByKeywordFromNewsData("TamilNadu", "en", "top"),
+                newsService.fetchStateNewsByKeywordFromNewsData("Tamil Nadu", "en", "top"),
                 "state",
                 "en", "TamilNadu", "India"
         );
@@ -283,6 +283,7 @@ public class NewsCronJob {
             e.setTitle((String) item.get("title"));
             e.setLink((String) item.get("link"));
             e.setSummary((String) item.get("description"));
+            e.getSummary().replaceAll("</?p>", "").replaceAll("</?strong>", "");
             e.setImageUrl((String) item.get("image_url"));
             e.setSource((String) item.get("source_name"));
             e.setCategory(category);

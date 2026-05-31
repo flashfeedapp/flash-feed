@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface NewsDataClient {
 
     @GetMapping
-    public Object getStateNewsByKeyword(@RequestParam("q") String keyword,@RequestParam String language,@RequestParam String category);
+    public Object getStateNewsByKeyword(@RequestParam("q") String keyword,@RequestParam String language,@RequestParam("prioritydomain") String priorityDomain);
 
     @GetMapping
-    public Object getNationalNewsByCountryAndLanguage(@RequestParam String country,@RequestParam String language,@RequestParam String category);
+    public Object getNationalNewsByCountryAndLanguage(@RequestParam String country,@RequestParam String language,@RequestParam String category, @RequestParam("q") String keyword);
 
     @GetMapping
     Object getWorldNews(@RequestParam String language,@RequestParam String category);

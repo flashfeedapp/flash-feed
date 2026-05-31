@@ -43,8 +43,10 @@ export class App {
 
             localStorage.setItem('userRole', user.role);
             if (!user.state || !user.language || !user.country) {
+              localStorage.removeItem('isPreferenceCompleted');
               this.redirectToPreferences();
             } else {
+              localStorage.setItem('isPreferenceCompleted', 'Y');
               this.redirectToHome();
             }
 
@@ -59,8 +61,10 @@ export class App {
         const country = localStorage.getItem('country');
 
         if (!state || !language || !country) {
+          localStorage.removeItem('isPreferenceCompleted');
           this.redirectToPreferences();
         } else {
+          localStorage.setItem('isPreferenceCompleted', 'Y');
           this.redirectToHome();
         }
 
@@ -71,11 +75,7 @@ export class App {
   }
 
   isPreferencesCompleted(): boolean {
-    const state = localStorage.getItem('state');
-    const language = localStorage.getItem('language');
-    const country = localStorage.getItem('country');
-
-    return !!(state && language && country);
+    return localStorage.getItem('isPreferenceCompleted') === 'Y';
   }
 
   toggleTheme() {

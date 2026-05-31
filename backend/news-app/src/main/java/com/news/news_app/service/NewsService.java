@@ -55,7 +55,7 @@ public class NewsService {
             Users user = userService.getUserDetails(deviceId);
             language = user.getLanguage();
         }
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("national", language);
+        return dailyNewsCacheRepository.findTop20ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("national", language);
     }
 
     public Object getStateNewsByKeyword(String state, String language, String country, String deviceId) throws Exception {
@@ -66,7 +66,7 @@ public class NewsService {
             state = user.getState();
             country = user.getCountry();
         }
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseAndStateIgnoreCaseAndCountryIgnoreCaseOrderByPublishedAtDesc("state", language, state, country);
+        return dailyNewsCacheRepository.findTop20ByCategoryIgnoreCaseAndLanguageIgnoreCaseAndStateIgnoreCaseAndCountryIgnoreCaseOrderByPublishedAtDesc("state", language, state, country);
     }
 
     public Object getWorldNewsByLangAndCategory(String language, String deviceId) throws Exception {
@@ -75,16 +75,16 @@ public class NewsService {
             Users user = userService.getUserDetails(deviceId);
             language = user.getLanguage();
         }
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("world", language);
+        return dailyNewsCacheRepository.findTop20ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("world", language);
     }
 
     public Object fetchNationalNewsFromNewsData(String country, String language, String category) {
         //return gNewsClient.getNationalNewsByGNews("nation","en", "None",1,"in");
-        return newsDataClient.getNationalNewsByCountryAndLanguage(country,language, category);
+        return newsDataClient.getNationalNewsByCountryAndLanguage(country,language, category, "national");
     }
 
     public Object fetchStateNewsByKeywordFromNewsData(String keyword, String language, String category) {
-        return newsDataClient.getStateNewsByKeyword(keyword,language, category);
+        return newsDataClient.getStateNewsByKeyword(keyword,language, "top");
     }
 
     public Object fetchWorldNewsByLangAndCategoryFromNewsData(String language, String category) {
@@ -97,7 +97,7 @@ public class NewsService {
             Users user = userService.getUserDetails(deviceId);
             language = user.getLanguage();
         }
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("business", language);
+        return dailyNewsCacheRepository.findTop20ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("business", language);
     }
 
     public Object getHealthNewsByLangAndCategory(String language, String deviceId) throws Exception {
@@ -107,7 +107,7 @@ public class NewsService {
             Users user = userService.getUserDetails(deviceId);
             language = user.getLanguage();
         }
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("health", language);
+        return dailyNewsCacheRepository.findTop20ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("health", language);
     }
 
     public Object getTechnologyNewsByLangAndCategory(String language, String deviceId) throws Exception {
@@ -116,7 +116,7 @@ public class NewsService {
             Users user = userService.getUserDetails(deviceId);
             language = user.getLanguage();
         }
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("technology",language);
+        return dailyNewsCacheRepository.findTop20ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("technology",language);
     }
 
     public Object getEntertainmentNewsByLangAndCategory(String language, String deviceId) throws Exception {
@@ -125,7 +125,7 @@ public class NewsService {
             Users user = userService.getUserDetails(deviceId);
             language = user.getLanguage();
         }
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("entertainment",language);
+        return dailyNewsCacheRepository.findTop20ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("entertainment",language);
     }
 
     public Object getTeluguLanguageNews() throws Exception {
@@ -209,6 +209,6 @@ public class NewsService {
 
     public Object getJobsNewsByLangAndCategory(String deviceId) throws Exception {
         Users user =userService.getUserDetails(deviceId);
-        return dailyNewsCacheRepository.findTop10ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("jobs",user.getLanguage());
+        return dailyNewsCacheRepository.findTop20ByCategoryIgnoreCaseAndLanguageIgnoreCaseOrderByPublishedAtDesc("jobs",user.getLanguage());
     }
 }

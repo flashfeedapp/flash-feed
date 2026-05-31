@@ -36,7 +36,7 @@ export class News {
 
   showAddNews: boolean = false;
   isAdmin = true;
-  isLoading : boolean = true;
+  isLoading: boolean = true;
 
   newNews: any = {
     id: '',
@@ -106,7 +106,8 @@ export class News {
       },
       error: (err) => {
         this.isLoading = false;
-        console.error('❌ Preload failed', err)}
+        console.error('❌ Preload failed', err)
+      }
     });
   }
 
@@ -149,12 +150,16 @@ export class News {
         // Update UI only if user is on this tab
         if (this.selectedTab === tab) {
           this.newsList = data;
+          setTimeout(() => {
+            window.scrollTo(0, 0);
+          }, 0);
         }
         this.isLoading = false;
       },
       error: (err) => {
         this.isLoading = false;
-        console.error(`❌ Reload failed for ${tab}`, err)}
+        console.error(`❌ Reload failed for ${tab}`, err)
+      }
     });
   }
 
