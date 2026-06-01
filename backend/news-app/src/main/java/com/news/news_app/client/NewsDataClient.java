@@ -11,7 +11,7 @@ public interface NewsDataClient {
     public Object getStateNewsByKeyword(@RequestParam("q") String keyword,@RequestParam String language,@RequestParam("prioritydomain") String priorityDomain);
 
     @GetMapping
-    public Object getNationalNewsByCountryAndLanguage(@RequestParam String country,@RequestParam String language,@RequestParam String category, @RequestParam("q") String keyword);
+    public Object getNationalNewsByCountryAndLanguage(@RequestParam String country,@RequestParam String language,@RequestParam("prioritydomain") String priorityDomain, @RequestParam("q") String keyword);
 
     @GetMapping
     Object getWorldNews(@RequestParam String language,@RequestParam String category);

@@ -5,6 +5,7 @@ import com.news.news_app.repository.DailyNewsCacheRepository;
 import com.news.news_app.service.LlamaStoryService;
 import com.news.news_app.service.NewsService;
 import jakarta.transaction.Transactional;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -283,7 +284,9 @@ public class NewsCronJob {
             e.setTitle((String) item.get("title"));
             e.setLink((String) item.get("link"));
             e.setSummary((String) item.get("description"));
-            e.getSummary().replaceAll("</?p>", "").replaceAll("</?strong>", "");
+            if (ObjectUtils.isNotEmpty(e.getSummary())) {
+                e.getSummary().replaceAll("</?p>", "").replaceAll("</?strong>", "");
+            }
             e.setImageUrl((String) item.get("image_url"));
             e.setSource((String) item.get("source_name"));
             e.setCategory(category);

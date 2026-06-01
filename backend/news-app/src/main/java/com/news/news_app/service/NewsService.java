@@ -80,7 +80,7 @@ public class NewsService {
 
     public Object fetchNationalNewsFromNewsData(String country, String language, String category) {
         //return gNewsClient.getNationalNewsByGNews("nation","en", "None",1,"in");
-        return newsDataClient.getNationalNewsByCountryAndLanguage(country,language, category, "national");
+        return newsDataClient.getNationalNewsByCountryAndLanguage(country,language, category, "india");
     }
 
     public Object fetchStateNewsByKeywordFromNewsData(String keyword, String language, String category) {
