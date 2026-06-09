@@ -7,7 +7,6 @@ import { NewsItem } from '../core/models/news.model';
 import { NewsService } from '../services/news.service';
 import { Router } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
-import { Greeting } from '../greeting/greeting';
 import { Share } from '@capacitor/share';
 
 declare var adsbygoogle: any
@@ -22,7 +21,7 @@ type NewsTab =
 
 @Component({
   selector: 'app-news',
-  imports: [CommonModule, FormsModule, Greeting],
+  imports: [CommonModule, FormsModule],
   templateUrl: './news.html',
   styleUrl: './news.scss'
 })

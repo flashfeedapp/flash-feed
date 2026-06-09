@@ -245,6 +245,29 @@
   border-left: 4px solid rgba(255, 216, 107, 0.6);
 }
 
+.stories-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 18px;
+    padding: 12px 0;
+}
+
+.stories-icon {
+    font-size: 28px;
+}
+
+.stories-header h2 {
+    margin: 0;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    color: #ffffff;
+    letter-spacing: 0.3px;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (min-width: 768px) {
   .story-card {

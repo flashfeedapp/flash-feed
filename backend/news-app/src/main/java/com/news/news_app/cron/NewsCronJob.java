@@ -239,7 +239,7 @@ public class NewsCronJob {
         saveNews(
                 newsService.fetchStateNewsByKeywordFromNewsData("Tamil Nadu", "en", "top"),
                 "state",
-                "en", "TamilNadu", "India"
+                "en", "Tamil Nadu", "India"
         );
 
         // Karnataka English Language
@@ -285,7 +285,8 @@ public class NewsCronJob {
             e.setLink((String) item.get("link"));
             e.setSummary((String) item.get("description"));
             if (ObjectUtils.isNotEmpty(e.getSummary())) {
-                e.getSummary().replaceAll("</?p>", "").replaceAll("</?strong>", "");
+                e.setSummary(e.getSummary().replaceAll("<p>", "").replaceAll("<strong>", "")
+                        .replaceAll("</p>", "").replaceAll("</strong>", ""));
             }
             e.setImageUrl((String) item.get("image_url"));
             e.setSource((String) item.get("source_name"));

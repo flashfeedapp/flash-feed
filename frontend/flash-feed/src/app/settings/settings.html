@@ -46,6 +46,16 @@
             <span class="lang-name">{{ lang.name }}</span>
         </li>
     </ul>
+
+    <div class="selection-hint">
+        {{ getHintText() }}
+    </div>
+
+    <div class="btn-container">
+        <button [disabled]="!isFormValid()" (click)="redirectToHome()">
+            Save
+        </button>
+    </div>
 </div>
 
 <!-- =========================

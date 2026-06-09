@@ -6,9 +6,9 @@
       🏛 Govt
     </div>
 
-    <div class="tab" [class.active]="selectedTab === 'private'" (click)="selectTab('private')">
+    <!--div class="tab" [class.active]="selectedTab === 'private'" (click)="selectTab('private')">
       💼 Private
-    </div>
+    </div-->
 
     <div class="tab" [class.active]="selectedTab === 'news'" (click)="selectTab('news')">
       📰 News
@@ -36,7 +36,7 @@
 
 
     <!-- Private Jobs -->
-    <ng-container *ngIf="selectedTab === 'private'">
+    <!--ng-container *ngIf="selectedTab === 'private'">
       <div class="job-card" *ngFor="let job of privateJobs" (click)="openJob(job.applyLink)">
 
         <div class="job-title">{{ job.title }}</div>
@@ -50,7 +50,7 @@
         </div>
 
       </div>
-    </ng-container>
+    </ng-container-->
 
 
     <!-- Job News -->

@@ -105,16 +105,12 @@ export class Settings {
   }
 
   toggleLanguage(lang: any) {
-    // UI update
-    this.selectedLanguages.forEach(l => l.enabled = false);
-    lang.enabled = true;
 
-    const result = this.preferenceService.saveLanguage(lang.code);
-
-    if (result) {
-      result.subscribe({
-        next: (res) => console.log('Language saved', res),
-        error: (err) => console.error('Error saving language', err)
+    if (lang.enabled) {
+      this.selectedLanguages.forEach(l => {
+        if (l !== lang) {
+          l.enabled = false;
+        }
       });
     }
   }
@@ -124,37 +120,96 @@ export class Settings {
     this.countries.forEach(l => l.enabled = false);
     country.enabled = true;
 
-    const result = this.preferenceService.saveCountry(country.name);
+    /*const result = this.preferenceService.saveCountry(country.name);
 
     if (result) {
       result.subscribe({
         next: (res) => console.log('Country saved', res),
         error: (err) => console.error('Error saving Country', err)
       });
-    }
+    }*/
   }
 
   toggleState(state: any) {
-    // UI update
-    this.states.forEach(l => l.enabled = false);
-    state.enabled = true;
+
+    if (!state.enabled) {
+      this.selectedLanguages = [];
+      return;
+    }
+
+    this.states.forEach(s => {
+      if (s !== state) {
+        s.enabled = false;
+      }
+    });
 
     const allowedLanguages = this.stateLanguageMap[state.name] || [];
 
-    this.selectedLanguages = this.languages.filter(lang => allowedLanguages.includes(lang.code))
-      .map(lang => ({ ...lang, enabled: false }));
-
-    const result = this.preferenceService.saveState(state.name);
-
-    if (result) {
-      result.subscribe({
-        next: (res) => console.log('State saved', res),
-        error: (err) => console.error('Error saving State', err)
-      });
-    }
+    this.selectedLanguages = this.languages
+      .filter(lang => allowedLanguages.includes(lang.code))
+      .map(lang => ({
+        ...lang,
+        enabled: false
+      }));
   }
 
   openPrivacy() {
     this.router.navigate(['/privacy']);
+  }
+
+  isFormValid(): boolean {
+    const countrySelected = this.countries.some(c => c.enabled);
+    const stateSelected = this.states.some(s => s.enabled);
+    const languageSelected = this.selectedLanguages.some(l => l.enabled);
+
+    return countrySelected && stateSelected && languageSelected;
+  }
+
+  getHintText(): string {
+
+    const countrySelected = this.countries.some(c => c.enabled);
+    if (!countrySelected) {
+      return 'Select your country to personalize news';
+    }
+
+    const stateSelected = this.states.some(s => s.enabled);
+
+    if (!stateSelected) {
+      return 'Select your state to personalize news';
+    }
+
+    const languageSelected = this.selectedLanguages.some(l => l.enabled);
+
+    if (!languageSelected) {
+      return 'Choose your language to personalize news';
+    }
+
+    return 'You are all set ✨';
+  }
+
+  redirectToHome() {
+
+    const selectedCountry = this.countries.find(c => c.enabled)?.name || '';
+    const selectedState = this.states.find(s => s.enabled)?.name || '';
+    const selectedLanguage = this.selectedLanguages.find(l => l.enabled)?.code || '';
+
+    if (!selectedCountry || !selectedState || !selectedLanguage) {
+      return;
+    }
+
+    const data = {
+      country: selectedCountry,
+      state: selectedState,
+      language: selectedLanguage
+    };
+
+    console.log(data);
+    this.preferenceService.saveUserDetails(data).subscribe({
+      next: () => {
+        localStorage.setItem('isPreferenceCompleted', 'Y');
+        this.router.navigate(['/home']);
+      },
+      error: (err) => console.error(err)
+    });
   }
 }

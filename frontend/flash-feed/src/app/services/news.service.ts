@@ -24,7 +24,7 @@ export class NewsService {
     }
 
     getStory(scope: string): Observable<NewsItem[]> {
-        const storyUrl = `${environment.apiBaseUrl}/api/v1/story?language=English BedTime Story`;
+        const storyUrl = `${environment.apiBaseUrl}/api/v1/story?language=en`;
         //return this.httpClient.get(url, { responseType: 'text' });
         return this.httpClient.get<any>(storyUrl).pipe(
             map(response => {
@@ -78,8 +78,8 @@ export class NewsService {
         }
 
         // 🔥 ADD THIS
-        console.log('🚀 FINAL API URL:', url);
-        console.log('📱 Device ID:', this.deviceId);
+        //console.log('🚀 FINAL API URL:', url);
+        //console.log('📱 Device ID:', this.deviceId);
 
         return this.httpClient.get<any>(url).pipe(
             map(response => {
