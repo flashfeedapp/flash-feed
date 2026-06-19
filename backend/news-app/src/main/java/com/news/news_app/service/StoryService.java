@@ -1,9 +1,17 @@
 package com.news.news_app.service;
 
+import com.news.news_app.entity.Story;
+import com.news.news_app.repository.StoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class StoryService {
+
+    @Autowired
+    private StoryRepository storyRepository;
 
     public Object getStoryByLanguage(String language) {
         return switch (language) {
@@ -37,5 +45,9 @@ public class StoryService {
             default -> "English Story " +
                     ": A simple moral story about honesty and patience.";
         };
+    }
+
+    public void addStories(List<Story> stories) {
+        storyRepository.saveAll(stories);
     }
 }

@@ -104,7 +104,28 @@ export class NewsService {
     }
 
     getJobs(): Observable<Job[]> {
-        return this.httpClient.get<Job[]>(`${this.apiUrl}/api/v1/jobs`);
+        let jobUrl = `${this.apiUrl}/api/v1/jobs`;
+
+        if (Capacitor.isNativePlatform()) {
+
+            if (this.deviceId) {
+                jobUrl += `?deviceId=${this.deviceId}`;
+            }
+
+        }else {
+
+            const language = localStorage.getItem('language');
+
+            const params = [];
+
+            if (language) params.push(`language=${language}`);
+            params.push(`deviceId=`)
+
+            if (params.length > 0) {
+                jobUrl += `?${params.join('&')}`;
+            }
+        }
+        return this.httpClient.get<Job[]>(jobUrl);
     }
 
     private extractImageFromEncoded(encoded: string): string {

@@ -5,6 +5,7 @@ import com.news.news_app.service.JobsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class JobController {
     private JobsService jobsService;
 
     @GetMapping
-    public List<Job> getAllJobs(){
-        return jobsService.getAllJobs();
+    public List<Job> getAllJobs(@RequestParam(required = false) String deviceId, @RequestParam(required = false) String language) throws Exception {
+        return jobsService.getAllJobs(deviceId, language);
     }
 }

@@ -3,29 +3,24 @@ package com.news.news_app.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
-public class Facts {
+public class Story {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String category;
+    @Column(columnDefinition = "TEXT")
+    private String title;
 
     @Column(columnDefinition = "TEXT")
-    private String fact;
+    private String summary;
 
     @Column(columnDefinition = "TEXT")
-    private String shortExplanation;
-
-    @Column(columnDefinition = "TEXT")
-    private String moreDetails;
-
-    private int likes;
+    private String language;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

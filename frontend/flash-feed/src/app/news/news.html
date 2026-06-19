@@ -41,13 +41,28 @@
         <ng-container *ngFor="let news of newsList; let i = index">
 
             <!-- ✅ LATEST NEWS (NO IMAGE) -->
-            <div *ngIf="news.isLatest" class="latest-card" (click)="openArticle(news.link)">
+            <div *ngIf="news.isLatest" class="news-card" (click)="openArticle(news.link)">
 
-                <div class="latest-header">
-                    <span class="live-dot"></span>
-                    <span class="latest-label">Latest</span>
+                <img *ngIf="news.imageUrl" [src]="news.imageUrl" alt="{{news.title}}" class="news-image">
+                <div class="news-body">
+                    <div class="news-title">{{news.title}}</div>
+                    <div class="news-summary">{{ truncate(news.summary, 200) }}</div>
+                    <!--div class="latest-header">
+                            <span class="live-dot"></span>
+                            <span class="latest-label">Latest</span>
+                        </div-->
+                    <div class="card-actions">
+                        <div class="left-info">
+                            <span class="news-source">{{news.source}}</span>
+                            <span class="dot">.</span>
+                            <span class="news.time">{{formatDate(news.time)}}</span>
+                        </div>
+                        <button class="share-btn" (click)="shareContent(news, $event)">🔗 Share</button>
+                        
+                    </div>
                 </div>
 
+                <!--div class="news-body">
                 <div class="latest-title">
                     {{ news.title }}
                 </div>
@@ -63,6 +78,11 @@
 
                     <button class="share-btn" (click)="shareContent(news, $event)">🔗</button>
                 </div>
+                <div class="latest-header">
+                    <span class="live-dot"></span>
+                    <span class="latest-label">Latest</span>
+                </div>
+                <!--/div-->
             </div>
             <!-- Normal News -->
             <div *ngIf="!news.isLatest" class="news-card" (click)="openArticle(news.link)">

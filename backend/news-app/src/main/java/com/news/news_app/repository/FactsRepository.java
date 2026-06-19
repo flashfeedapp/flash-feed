@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface FactsRepository extends JpaRepository<Facts, Long> {
     List<Facts> findAll();
+
+    List<Facts> findTop20ByOrderByCreatedAt();
 }

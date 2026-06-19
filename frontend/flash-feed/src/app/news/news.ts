@@ -53,6 +53,7 @@ export class News {
   };
 
   private allNews: { [key: string]: NewsItem[] } = {};
+  private tabScrollPositions: Record<string, number> = {};
 
   @ViewChild('tabContainer') tabContainer !: ElementRef;
 
@@ -115,27 +116,39 @@ export class News {
   }
 
   selectTab(tab: string) {
-    if (this.selectedTab == tab) {
-      return;
-    }
-    this.selectedTab = tab;
-    //if (tab != 'Jobs') {
-    this.newsList = this.allNews[tab];
-    this.reloadTab(tab);
-    //}
-
-    this.loadAds();
-
-    setTimeout(() => {
-      const container = this.tabContainer?.nativeElement;
-      const activeTab = container.querySelector('.tab.active');
-
-      if (activeTab && container) {
-        const offset = activeTab.offsetLeft - (container.offsetWidth / 2) + (activeTab.offsetWidth / 2);
-        container.scrollTo({ left: offset, behaviour: 'smooth' });
-      }
-    });
+  if (this.selectedTab == tab) {
+    return;
   }
+
+  // save current scroll position
+  const currentList = document.querySelector('.news-list') as HTMLElement | null;
+  if (currentList) {
+    this.tabScrollPositions[this.selectedTab] = currentList.scrollTop;
+  }
+
+  // switch tab
+  this.selectedTab = tab;
+  this.newsList = this.allNews[tab];
+  this.reloadTab(tab);
+  this.loadAds();
+
+  // center active tab and restore saved scroll for the selected tab
+  setTimeout(() => {
+    const container = this.tabContainer?.nativeElement;
+    const activeTab = container?.querySelector('.tab.active');
+
+    if (activeTab && container) {
+      const offset = activeTab.offsetLeft - (container.offsetWidth / 2) + (activeTab.offsetWidth / 2);
+      container.scrollTo({ left: offset, behavior: 'smooth' });
+    }
+
+    const list = document.querySelector('.news-list') as HTMLElement | null;
+    if (list) {
+      const pos = this.tabScrollPositions[tab] || 0;
+      list.scrollTop = pos;
+    }
+  }, 0);
+}
 
   reloadTab(tab: string): void {
 
@@ -150,8 +163,12 @@ export class News {
         if (this.selectedTab === tab) {
           this.newsList = data;
           setTimeout(() => {
-            window.scrollTo(0, 0);
-          }, 0);
+  const list = document.querySelector('.news-list') as HTMLElement | null;
+  if (list) {
+    const pos = this.tabScrollPositions[tab] || 0;
+    list.scrollTop = pos;
+  }
+}, 0);
         }
         this.isLoading = false;
       },
@@ -164,12 +181,27 @@ export class News {
 
   formatDate(date: string): string {
     const d = new Date(date);
-    return d.toLocaleString('en-IN', {
-      day: 'numeric',
-      month: 'short',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
+    if (isNaN(d.getTime())) {
+      return '';
+    }
+
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const itemDayStart = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const dayDiff = Math.floor((todayStart.getTime() - itemDayStart.getTime()) / (1000 * 60 * 60 * 24));
+
+    if (dayDiff === 0) {
+      const diffMs = now.getTime() - d.getTime();
+      const hours = Math.floor(diffMs / (1000 * 60 * 60));
+      if (hours > 0) {
+        return `${hours}h`;
+      }
+
+      const minutes = Math.floor(diffMs / (1000 * 60));
+      return minutes > 0 ? `${minutes}m` : 'Just now';
+    }
+
+    return `${dayDiff}d`;
   }
 
   truncate(text: string, maxLength: number): string {
@@ -265,7 +297,7 @@ export class News {
 ${this.truncate(item.summary, 120)}
 
 Read more on News Bird 👇
-https://play.google.com/store/apps/details?id=YOUR_APP_ID`;
+https://play.google.com/store/apps/details?id=com.newsbird.app`;
 
     // ✅ Native app
     if (window && (window as any).Capacitor?.isNativePlatform?.()) {

@@ -5,9 +5,7 @@ import com.news.news_app.service.FactsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +20,10 @@ public class FactsController {
     public ResponseEntity<List<Facts>> getFacts(){
         List<Facts> facts = factsService.getFacts();
         return new ResponseEntity<>(facts, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public void addFacts(@RequestBody List<Facts> facts) {
+        factsService.addFacts(facts);
     }
 }

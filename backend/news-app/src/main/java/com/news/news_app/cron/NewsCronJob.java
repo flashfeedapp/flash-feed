@@ -1,7 +1,9 @@
 package com.news.news_app.cron;
 
 import com.news.news_app.entity.DailyNewsCache;
+import com.news.news_app.entity.Job;
 import com.news.news_app.repository.DailyNewsCacheRepository;
+import com.news.news_app.repository.JobRepository;
 import com.news.news_app.service.LlamaStoryService;
 import com.news.news_app.service.NewsService;
 import jakarta.transaction.Transactional;
@@ -24,6 +26,9 @@ public class NewsCronJob {
 
     @Autowired
     private DailyNewsCacheRepository dailyNewsCacheRepository;
+
+    @Autowired
+    private JobRepository jobRepository;
 
     @Autowired
     private LlamaStoryService llamaStoryService;
@@ -51,11 +56,8 @@ public class NewsCronJob {
                 "te", null, null
         );
 
-        saveNews(
-                newsService.fetchJobsNewsByLangAndCategoryFromNewsData("te", "top"),
-                "jobs",
-                "te", null, null
-        );
+        saveJobNews(
+                newsService.fetchJobsNewsByLangAndCategoryFromNewsData("te", "top"), "te");
 
         saveNews(
                 newsService.fetchBusinessNewsByLanguageFromNewsData("te", "business"),
@@ -101,11 +103,8 @@ public class NewsCronJob {
                 "hi", null, null
         );
 
-        saveNews(
-                newsService.fetchJobsNewsByLangAndCategoryFromNewsData("hi", "top"),
-                "jobs",
-                "hi", null, null
-        );
+        saveJobNews(
+                newsService.fetchJobsNewsByLangAndCategoryFromNewsData("hi", "top"), "hi");
 
         saveNews(
                 newsService.fetchBusinessNewsByLanguageFromNewsData("hi", "business"),
@@ -151,11 +150,8 @@ public class NewsCronJob {
                 "en", null, null
         );
 
-        saveNews(
-                newsService.fetchJobsNewsByLangAndCategoryFromNewsData("en", "top"),
-                "jobs",
-                "en", null, null
-        );
+        saveJobNews(
+                newsService.fetchJobsNewsByLangAndCategoryFromNewsData("en", "top"), "en");
 
         saveNews(
                 newsService.fetchBusinessNewsByLanguageFromNewsData("en", "business"),
@@ -307,4 +303,37 @@ public class NewsCronJob {
 
         dailyNewsCacheRepository.saveAll(entities);
     }
+
+    private void saveJobNews(Object response, String language) {
+
+        Map<String, Object> map = (Map<String, Object>) response;
+        List<Map<String, Object>> results =
+                (List<Map<String, Object>>) map.getOrDefault("results", List.of());
+
+        List<Job> entities = results.stream().map(item -> {
+            Job job = new Job();
+            job.setTitle((String) item.get("title"));
+            job.setApplyLink((String) item.get("link"));
+            job.setSummary((String) item.get("description"));
+            if (ObjectUtils.isNotEmpty(job.getSummary())) {
+                job.setSummary(job.getSummary().replaceAll("<p>", "").replaceAll("<strong>", "")
+                        .replaceAll("</p>", "").replaceAll("</strong>", ""));
+            }
+            job.setImageUrl((String) item.get("image_url"));
+            job.setSource((String) item.get("source_name"));
+            job.setLanguage(language);
+            String pubDate = (String) item.get("pubDate");
+
+            DateTimeFormatter formatter =
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            job.setPublishedAt(LocalDateTime.parse(pubDate, formatter));
+            job.setCreatedAt(LocalDateTime.now());
+            job.setJobType("NEWS");
+            return job;
+        }).toList();
+
+        jobRepository.saveAll(entities);
+    }
+
 }

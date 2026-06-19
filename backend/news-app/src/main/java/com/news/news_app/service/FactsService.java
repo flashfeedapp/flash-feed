@@ -14,7 +14,10 @@ public class FactsService {
     private FactsRepository factsRepository;
 
     public List<Facts> getFacts(){
-        List<Facts> facts = factsRepository.findAll();
-        return facts;
+        return factsRepository.findTop20ByOrderByCreatedAt();
+    }
+
+    public void addFacts(List<Facts> facts) {
+        factsRepository.saveAll(facts);
     }
 }

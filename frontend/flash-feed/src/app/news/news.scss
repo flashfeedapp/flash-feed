@@ -37,10 +37,16 @@
     border: 2px solid #FF5252;
 }
 
+// .news-list {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 14px;
+// }
+
 .news-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+  max-height: calc(100vh - 140px); /* adjust 140px to match your header/tab height */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .news-card {
